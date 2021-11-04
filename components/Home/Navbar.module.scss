@@ -1,0 +1,80 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+$size: 40px, 50px, 60px;
+
+$size-title: 1.3125rem; // 21px
+
+.navbar_backdrop {
+  min-height: 5.125rem;
+  width: 100%;
+  background: $violet-dark;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar_container {
+min-height: 5.125rem;
+  width: 1120px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar_img {
+  margin: 1rem;
+}
+
+.navbar_menu {
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+
+  ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+    color: white;
+
+    a {
+      text-decoration: none;
+      padding: 1rem;
+      display: block;
+    }
+
+    &:hover {
+        background-color: $violet-light;
+    }
+  }
+}
+
+.button_container {
+  margin: 1rem;
+  button {
+    display: block;
+    width: 136px;
+    height: 58px;
+    background: $golden;
+    border-radius: 10px;
+
+    color: white;
+    font-size: 25px;
+    font-weight: 600;
+
+    &:hover {
+      cursor: pointer;
+      background: darken($golden, 10%);
+    }
+  }
+}
