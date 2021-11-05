@@ -1,0 +1,53 @@
+$title-size: 8rem; //80px
+$text-size: 2rem; //20px
+
+.card_container {
+  width: 240px;
+  height: 320px;
+
+  background: #fafafa;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  
+
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+
+  h3 {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+    align-self: center;
+    font-size: 8rem;
+
+    height: 40%;
+
+    &::after {
+      content: "";
+      background: #a12568;
+      height: 4px;
+      width: 80px;
+    }
+  }
+
+
+  p {
+    display: flex;
+
+    align-items: center;
+    font-size: 2rem;
+    text-align: center;
+
+    margin-top: 1.5em;
+
+    height: 40%;
+  }
+}
