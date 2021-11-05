@@ -4,6 +4,11 @@ $violet-light: #3b185f;
 $margin: #a12568;
 $golden: #fec260;
 
+// set basic font sizes
+// root: 10px
+$font-title: 4.5rem; //45px
+$font-subtitle: 2.4rem; //24px
+
 .top_container {
   display: flex;
   justify-content: center;
@@ -51,13 +56,13 @@ $golden: #fec260;
 
   h1 {
     color: white;
-    font-size: 45px;
+    font-size: $font-title;
   }
 
   h3 {
     padding: 1rem 0;
     color: $golden;
-    font-size: 24px;
+    font-size: $font-subtitle;
   }
 }
 

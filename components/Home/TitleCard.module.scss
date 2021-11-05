@@ -1,0 +1,35 @@
+// set basic font sizes
+// root: 10px
+$font-title: 2rem; //20px
+$font-subtitle: 2rem; //20px
+
+.title_container {
+  width: 640px;
+  height: 80px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #fafafa;
+
+  /* transform: rotate(-1deg); */
+
+//   grid-column: 3;
+//   grid-row: 5;
+
+  border: 1px solid #000000;
+  border-radius: 10px;
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 600;
+    font-size: 45px;
+
+    width: 640px;
+    height: 80px;
+  }
+}
