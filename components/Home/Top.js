@@ -5,7 +5,8 @@ export default function Top(params) {
     <section className={styles.top_container}>
       <div className={styles.top_container_elem}>
         <div className={styles.title_container}>
-          <h1>Learn with your Teacher Easily with MathX.</h1>
+          <h1>Learn with your Teacher</h1>
+          <h1>Easily with MathX.</h1>
           <h3>Best solution to manage your learning easily and friendly.</h3>
         </div>
         <div className={styles.top_frame}>
@@ -16,7 +17,7 @@ export default function Top(params) {
         </div>
       </div>
 
-      <span className={styles.background_figure1}>
+      {/* <span className={styles.background_figure1}>
         <img src="/backdrop/shapes/eli.png"></img>
       </span>
       <span className={styles.background_figure2}>
@@ -27,7 +28,7 @@ export default function Top(params) {
       </span>
       <span className={styles.background_figure4}>
         <img src="/backdrop/shapes/tri.png"></img>
-      </span>
+      </span> */}
       <span className={styles.background_caption1}></span>
       <span className={styles.background_caption2}></span>
       <span className={styles.background_caption3}></span>
