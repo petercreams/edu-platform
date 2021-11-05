@@ -1,0 +1,31 @@
+$paper-height: 800px;
+
+.paperContainer {
+    background-image: url("/backdrop/paper-margins.svg");
+    background-color: white;
+    border-right: 3px solid #000000;
+    border-left: 3px solid #000000;
+    // box-shadow: 0 0 5px black;
+    height: $paper-height;
+    max-width: 1440px;
+    
+    // display: grid;
+    // grid-template-columns: repeat(18, 80px);
+    // grid-template-rows: repeat(10, 80px);
+
+  }
+  
+//   .marginLeft {
+//     margin-left: 160px;
+//     border: 0;
+//     border-right: 3px solid #a12568;
+//     height: $paper-height;
+//   }
+  
+//   .marginRight {
+//     margin-right: 160px;
+//     border: 0;
+//     border-right: 3px solid #a12568;
+//     height: $paper-height;
+//   }
+  
