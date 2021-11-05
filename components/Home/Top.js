@@ -5,14 +5,14 @@ export default function Top(params) {
     <section className={styles.top_container}>
       <div className={styles.top_container_elem}>
         <div className={styles.title_container}>
-          <h1>Learn with your Teacher</h1>
+          <h1>Learn with your teacher</h1>
           <h1>Easily with MathX.</h1>
           <h3>Best solution to manage your learning easily and friendly.</h3>
         </div>
         <div className={styles.top_frame}>
           <img
             src="/illustrations/undraw_road_to_knowledge_m8s0.svg"
-            alt="Photo"
+            alt="user-panel-img"
           ></img>
         </div>
       </div>
