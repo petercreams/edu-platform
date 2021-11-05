@@ -1,5 +1,8 @@
 import Head from "next/head";
-import styles from "../styles/index.module.css"
+import Backdrop from "../components/Home/Backdrop";
+import Navbar from "../components/Home/Navbar";
+import Top from "../components/Home/Top";
+import styles from "../styles/index.module.css";
 
 export default function Home() {
   return (
@@ -8,20 +11,17 @@ export default function Home() {
         <title>MathX - Home</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <header>
+        <Navbar />
+      </header>
       <main>
-        <div className={styles.container}>
-          <div className={styles.gridContainer}>
-            <hr className={styles.marginLeft}></hr>
-            <div className={styles.title1}>
-              <p className={styles.hello}>How it works?</p>
-            </div>
-
-            <hr className={styles.marginRight}></hr>
+        <Top />
+        <Backdrop>
+          <div className={styles.title1}>
+            <p className={styles.hello}>How it works?</p>
           </div>
-        </div>
+        </Backdrop>
       </main>
-
     </div>
   );
 }
