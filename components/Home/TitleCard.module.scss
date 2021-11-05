@@ -1,10 +1,9 @@
 // set basic font sizes
 // root: 10px
-$font-title: 2rem; //20px
-$font-subtitle: 2rem; //20px
+$font-title: 4.5rem; //45px
 
 .title_container {
-  width: 640px;
+  max-width: 640px;
   height: 80px;
 
   display: flex;
@@ -27,7 +26,7 @@ $font-subtitle: 2rem; //20px
     align-items: center;
 
     font-weight: 600;
-    font-size: 45px;
+    font-size: 4.5rem;
 
     width: 640px;
     height: 80px;
