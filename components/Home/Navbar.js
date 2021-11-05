@@ -12,7 +12,7 @@ export default function Navbar(params) {
               <img src={"/logo/MathX.svg"}></img>
             </a>
           </div>
-          <div className={styles.navbar_menu}>
+          <div className={styles.navbar_links}>
             <ul>
               <li>
                 <a>About</a>

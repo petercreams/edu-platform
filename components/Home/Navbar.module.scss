@@ -5,8 +5,10 @@ $margin: #a12568;
 $golden: #fec260;
 
 // set basic font sizes
+// root: 16px
 $size: 40px, 50px, 60px;
 
+$font-button: 1.5625rem; //25px
 $size-title: 1.3125rem; // 21px
 
 .navbar_backdrop {
@@ -20,7 +22,7 @@ $size-title: 1.3125rem; // 21px
 }
 
 .navbar_container {
-min-height: 5.125rem;
+  min-height: 5.125rem;
   width: 1120px;
 
   display: flex;
@@ -29,13 +31,13 @@ min-height: 5.125rem;
 }
 
 .navbar_img {
-  margin: 1rem;
+  margin: 1.5rem;
 }
 
-.navbar_menu {
+.navbar_links {
   display: flex;
   align-items: center;
-  font-size: 25px;
+  font-size: $font-button;
 
   ul {
     display: flex;
@@ -54,13 +56,13 @@ min-height: 5.125rem;
     }
 
     &:hover {
-        background-color: $violet-light;
+      background-color: $violet-light;
     }
   }
 }
 
 .button_container {
-  margin: 1rem;
+  margin: 1.5rem;
   button {
     display: block;
     width: 136px;
@@ -69,7 +71,7 @@ min-height: 5.125rem;
     border-radius: 10px;
 
     color: white;
-    font-size: 25px;
+    font-size: $font-button;
     font-weight: 600;
 
     &:hover {
