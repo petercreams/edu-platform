@@ -1,0 +1,30 @@
+.about {
+    // display: grid;
+    // grid-template-columns: repeat(18, 80px);
+    // grid-template-rows: repeat(10, 80px);
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 1440px;
+    margin-top: 400px;
+}
+
+.title1_container {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 8rem;
+
+
+    // grid-column: 6;
+    // grid-row: 6;
+}
+
+.cardInfo_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 4rem;
+}
