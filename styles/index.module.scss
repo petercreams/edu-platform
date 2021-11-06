@@ -1,30 +1,90 @@
+/// *** About section ***
+
 .about {
-    // display: grid;
-    // grid-template-columns: repeat(18, 80px);
-    // grid-template-rows: repeat(10, 80px);
+  // display: grid;
+  // grid-template-columns: repeat(18, 80px);
+  // grid-template-rows: repeat(10, 80px);
 
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 
-    width: 1440px;
-    margin-top: 400px;
+  width: 1440px;
+  margin-top: 32rem;
 }
 
 .title1_container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    margin-bottom: 8rem;
+  margin-bottom: 8rem;
 
-
-    // grid-column: 6;
-    // grid-row: 6;
+  // grid-column: 6;
+  // grid-row: 6;
 }
 
 .cardInfo_container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 4rem;
+}
+
+/// *** Courses section ***
+
+.courses {
+  // display: grid;
+  // grid-template-columns: repeat(18, 80px);
+  // grid-template-rows: repeat(10, 80px);
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 1440px;
+  margin-top: 8rem;
+}
+
+.title2_container {
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 8rem;
+}
+
+.cardCourses_container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 4rem;
+}
+
+
+/// *** Teachers section ***
+
+.teachers {
+  display: flex;
+  justify-content: center;
+
+  flex-direction: column;
+
+  width: 1440px;
+
+  margin-top: 8rem;
+}
+
+.title3_container {
+  display: flex;
+  justify-content: center;
+}
+
+.cardTeachers_container {
     display: flex;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     gap: 4rem;
+
+    margin: 0 auto;
+
+    margin-top: 8rem;
 }
