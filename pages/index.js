@@ -30,11 +30,31 @@ export default function Home() {
                 <CardInfo
                   title={"1."}
                   text={"Check our offer and choose your course"}
+                  design={"about"}
                 />
-                <CardInfo title={"2."} text={"Call us or send us the form"} />
+                <CardInfo title={"2."} text={"Call us or send us the form"} design={"about"} />
                 <CardInfo
                   title={"3."}
                   text={"Enjoy a course with your teacher"}
+                  design={"about"}
+                />
+              </div>
+            </section>
+            <section className={styles.courses}>
+            <div className={styles.title2_container}>
+                <TitleCard title={"Courses"}/>
+              </div>
+              <div className={styles.cardCourses_container}>
+                <CardInfo
+                  title={"#Math"}
+                  text={"Check our in-depth math course for 8th grades"}
+                  design={"courses"}
+                />
+                <CardInfo title={"#Physics"} text={"Coming soon..."} design={"courses"} />
+                <CardInfo
+                  title={"#IT"}
+                  text={"Coming soon..."}
+                  design={"courses"}
                 />
               </div>
             </section>
