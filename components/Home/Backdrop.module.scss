@@ -1,10 +1,12 @@
-$paper-height: 800px;
-
 .container {
   background-image: url("/backdrop/background.svg");
+  background-size: contain;
 
   display: flex;
+  flex-wrap: nowrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
 }
