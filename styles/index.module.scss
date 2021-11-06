@@ -1,9 +1,6 @@
 /// *** About section ***
-
 .about {
-  // display: grid;
-  // grid-template-columns: repeat(18, 80px);
-  // grid-template-rows: repeat(10, 80px);
+
 
   display: flex;
   justify-content: center;
@@ -19,8 +16,6 @@
 
   margin-bottom: 8rem;
 
-  // grid-column: 6;
-  // grid-row: 6;
 }
 
 .cardInfo_container {
@@ -33,10 +28,6 @@
 /// *** Courses section ***
 
 .courses {
-  // display: grid;
-  // grid-template-columns: repeat(18, 80px);
-  // grid-template-rows: repeat(10, 80px);
-
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -58,7 +49,6 @@
   flex-direction: row;
   gap: 4rem;
 }
-
 
 /// *** Teachers section ***
 
@@ -82,7 +72,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap: 4rem;
+    gap: 8rem;
 
     margin: 0 auto;
 
