@@ -1,3 +1,11 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
 $title-size: 8rem; //80px
 $text-size: 2rem; //20px
 
@@ -15,6 +23,11 @@ $text-size: 2rem; //20px
   flex-direction: column;
 
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+
+  &:hover {
+    filter: drop-shadow(4px 4px 4px $golden);
+    cursor: default;
+  }
 }
 
 .title_container {
