@@ -1,0 +1,75 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$name-size: 2rem; //20px
+$nickname-size: 1.5rem; //15px
+$comment-size: 2rem; //20px
+
+.card_container {
+  width: 560px;
+  height: 160px;
+
+  background: #fafafa;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: row;
+
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+
+  .img_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    order: 0;
+
+    width: 50%;
+
+    img {
+      width: 120px;
+      height: 120px;
+
+      border: 3px solid $golden;
+      border-radius: 50%;
+      box-sizing: border-box;
+      filter: drop-shadow(0px 0px 4px $golden);
+    }
+  }
+  .text_container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  
+
+    .name_container {
+      font-size: $name-size;
+      font-weight: 600;
+      
+    }
+
+    .nickname_container {
+      color: $golden;
+      font-size: $nickname-size;
+    }
+
+    .comment_container {
+      font-size: $comment-size;
+
+
+      color: $margin;
+      font-weight: 600;
+
+      display: flex;
+      margin: auto 0;
+
+    }
+  }
+}
