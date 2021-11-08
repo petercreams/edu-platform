@@ -4,6 +4,7 @@ import CardContact from "../components/Home/CardContact";
 import CardInfo from "../components/Home/CardInfo";
 import CardReferences from "../components/Home/CardReferences";
 import CardTeacher from "../components/Home/CardTeacher";
+import Footer from "../components/Home/Footer";
 import Navbar from "../components/Home/Navbar";
 import PaperContainer from "../components/Home/PaperContainer";
 import TitleCard from "../components/Home/TitleCard";
@@ -82,7 +83,7 @@ export default function Home() {
                   info2={"Passionate about teaching"}
                   info3={"Acting and singing lover"}
                   skills={"#math #physics #it"}
-                  design={"normal"} 
+                  design={"normal"}
                 />
                 <CardTeacher
                   img={"/teachers/teacher1.jpg"}
@@ -149,6 +150,13 @@ export default function Home() {
                 <CardContact />
               </div>
             </section>
+
+            <footer>
+            <div className={styles.footer_container}>
+            <Footer />
+            </div>
+              
+            </footer>
           </PaperContainer>
         </Backdrop>
       </main>
