@@ -54,7 +54,7 @@ export default function CardContact(props) {
           <input ref={userEmail} placeholder="Email..." type="email"></input>
         </div>
         <div className={styles.contact_text}>
-          <input ref={userText} placeholder="Message..." type="text"></input>
+          <textarea ref={userText} placeholder="Message..." type="text" wrap="soft"></textarea>
         </div>
         <div className={styles.button_container}>
           {/* disable button for 5s after send */}

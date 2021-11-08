@@ -46,6 +46,22 @@ $alert-size: 1.6rem; //16px
     border: 1px solid #000000;
     border-radius: 5px;
     text-indent: 1rem;
+
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  textarea {
+    width: 400px;
+    height: 120px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 5px;
+
+    padding: 1rem;
+
+    resize: none;
+    overflow: auto;
   }
 }
 
