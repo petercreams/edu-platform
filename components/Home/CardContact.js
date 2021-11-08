@@ -17,6 +17,7 @@ export default function CardContact(props) {
       text: userText.current.value,
     };
 
+    // form data validation
     if ((formData.email !== "") & (formData.text !== "")) {
       setSubmit(true);
 
@@ -44,9 +45,6 @@ export default function CardContact(props) {
       }, 5000);
   }, [error]);
 
-  const alertHandler = () => {
-    return <p>Form sent successfully</p>;
-  };
   return (
     <form method="post" onSubmit={submitHandler}>
       <div className={styles.contact_container}>
@@ -54,7 +52,12 @@ export default function CardContact(props) {
           <input ref={userEmail} placeholder="Email..." type="email"></input>
         </div>
         <div className={styles.contact_text}>
-          <textarea ref={userText} placeholder="Message..." type="text" wrap="soft"></textarea>
+          <textarea
+            ref={userText}
+            placeholder="Message..."
+            type="text"
+            wrap="soft"
+          ></textarea>
         </div>
         <div className={styles.button_container}>
           {/* disable button for 5s after send */}
