@@ -8,34 +8,47 @@ export default function Navbar(params) {
       <div className={styles.navbar_backdrop}>
         <div className={styles.navbar_container}>
           <div className={styles.navbar_img}>
-            <a href="/">
-              <img src={"/logo/MathX.svg"}></img>
-            </a>
+            <Link href="/">
+              <a>
+                <img src={"/logo/MathX.svg"}></img>
+              </a>
+            </Link>
           </div>
+
           <div className={styles.navbar_links}>
             <ul>
               <li>
-                <a>About</a>
+                <Link href="#about">
+                  <a>About</a>
+                </Link>
+              </li>
+
+              <li>
+                <Link href="#courses">
+                  <a>Courses</a>
+                </Link>
               </li>
               <li>
-                <a>Courses</a>
+                <Link href="#teachers">
+                  <a>Teachers</a>
+                </Link>
               </li>
               <li>
-                <a>Teachers</a>
+                <Link href="#references">
+                  <a>References</a>
+                </Link>
               </li>
               <li>
-                <a>References</a>
-              </li>
-              <li>
-                <a>Contact</a>
+                <Link href="#contact">
+                  <a>Contact</a>
+                </Link>
               </li>
             </ul>
 
             <div className={styles.button_container}>
-            <button>Sign In</button>
+              <button>Sign In</button>
+            </div>
           </div>
-          </div>
-
         </div>
       </div>
     </nav>
