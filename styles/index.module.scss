@@ -1,7 +1,5 @@
 /// *** About section ***
 .about {
-
-
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -15,7 +13,6 @@
   justify-content: center;
 
   margin-bottom: 8rem;
-
 }
 
 .cardInfo_container {
@@ -69,12 +66,60 @@
 }
 
 .cardTeachers_container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 8rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8rem;
 
-    margin: 0 auto;
+  margin: 0 auto;
 
-    margin-top: 8rem;
+  margin-top: 8rem;
+}
+
+/// *** References section ***
+
+.references {
+  display: flex;
+
+  justify-content: center;
+
+  flex-direction: column;
+
+  width: 1440px;
+
+  margin-top: 8rem;
+}
+
+.referencesTitle_container {
+  display: flex;
+  justify-content: center;
+}
+
+.references_container {
+  display: flex;
+  flex-direction: column;
+  // margin-top: 48.5rem;
+}
+
+.references_items {
+  margin: 0 auto;
+  .references_items_1 {
+    margin: 8rem 0;
+  }
+}
+
+/// *** Contact section ***
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.title5_container {
+  margin: 0 auto;
+}
+
+.form_container {
+  margin: 0 auto;
 }

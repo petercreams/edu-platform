@@ -1,10 +1,13 @@
 import Head from "next/head";
 import Backdrop from "../components/Home/Backdrop";
+import CardContact from "../components/Home/CardContact";
 import CardInfo from "../components/Home/CardInfo";
+import CardReferences from "../components/Home/CardReferences";
 import CardTeacher from "../components/Home/CardTeacher";
 import Navbar from "../components/Home/Navbar";
 import PaperContainer from "../components/Home/PaperContainer";
 import TitleCard from "../components/Home/TitleCard";
+import TitleReferences from "../components/Home/TitleReferences";
 import Top from "../components/Home/Top";
 
 import styles from "../styles/index.module.scss";
@@ -69,7 +72,7 @@ export default function Home() {
             </section>
             <section id={"teachers"} className={styles.teachers}>
               <div className={styles.title3_container}>
-                <TitleCard title={"Meet our teachers"} />
+                <TitleCard title={"Meet our teachers!"} />
               </div>
               <div className={styles.cardTeachers_container}>
                 <CardTeacher
@@ -79,7 +82,7 @@ export default function Home() {
                   info2={"Passionate about teaching"}
                   info3={"Acting and singing lover"}
                   skills={"#math #physics #it"}
-                  design={"normal"} //and reverse
+                  design={"normal"} 
                 />
                 <CardTeacher
                   img={"/teachers/teacher1.jpg"}
@@ -88,8 +91,62 @@ export default function Home() {
                   info2={"Passionate about teaching"}
                   info3={"Acting and singing lover"}
                   skills={"#math #physics #it"}
-                  design={"reverse"} //and reverse (flex order)
+                  design={"reverse"}
                 />
+              </div>
+            </section>
+            <section id={"references"} className={styles.references}>
+              <div className={styles.referencesTitle_container}>
+                <TitleReferences />
+              </div>
+
+              <div className={styles.references_container}>
+                <div className={styles.references_items}>
+                  <div className={styles.references_items_1}>
+                    <CardReferences
+                      img={"/teachers/teacher1.jpg"}
+                      name={"Piotr Śmietanka"}
+                      nickname={"peter_creams"}
+                      comment={"Awesome math course. Really impresive stuff!"}
+                    />
+                  </div>
+
+                  <div className={styles.references_items_1}>
+                    <CardReferences
+                      img={"/teachers/teacher1.jpg"}
+                      name={"Piotr Śmietanka"}
+                      nickname={"peter_creams"}
+                      comment={"Awesome math course. Really impresive stuff!"}
+                    />
+                  </div>
+
+                  <div className={styles.references_items_1}>
+                    <CardReferences
+                      img={"/teachers/teacher1.jpg"}
+                      name={"Piotr Śmietanka"}
+                      nickname={"peter_creams"}
+                      comment={"Awesome math course. Really impresive stuff!"}
+                    />
+                  </div>
+
+                  <div className={styles.references_items_1}>
+                    <CardReferences
+                      img={"/teachers/teacher1.jpg"}
+                      name={"Piotr Śmietanka"}
+                      nickname={"peter_creams"}
+                      comment={"Awesome math course. Really impresive stuff!"}
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="contact" className={styles.contact}>
+              <div className={styles.title5_container}>
+                <TitleCard title={"Contact us"} />
+              </div>
+              <div className={styles.form_container}>
+                <CardContact />
               </div>
             </section>
           </PaperContainer>
