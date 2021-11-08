@@ -117,7 +117,7 @@ export default function Home() {
                       img={"/teachers/teacher1.jpg"}
                       name={"Piotr Śmietanka"}
                       nickname={"peter_creams"}
-                      comment={"Awesome math course. Really impresive stuff!"}
+                      comment={"This is incredible work. Amazing job, MathX!"}
                     />
                   </div>
 
@@ -126,7 +126,7 @@ export default function Home() {
                       img={"/teachers/teacher1.jpg"}
                       name={"Piotr Śmietanka"}
                       nickname={"peter_creams"}
-                      comment={"Awesome math course. Really impresive stuff!"}
+                      comment={"I find MathX the best learning platform!"}
                     />
                   </div>
 
@@ -135,7 +135,9 @@ export default function Home() {
                       img={"/teachers/teacher1.jpg"}
                       name={"Piotr Śmietanka"}
                       nickname={"peter_creams"}
-                      comment={"Awesome math course. Really impresive stuff!"}
+                      comment={
+                        "Affordable, clean, very friendly, awesome app. I just love MathX!"
+                      }
                     />
                   </div>
                 </div>
@@ -152,10 +154,9 @@ export default function Home() {
             </section>
 
             <footer>
-            <div className={styles.footer_container}>
-            <Footer />
-            </div>
-              
+              <div className={styles.footer_container}>
+                <Footer />
+              </div>
             </footer>
           </PaperContainer>
         </Backdrop>
