@@ -31,7 +31,7 @@ $comment-size: 2rem; //20px
 
     order: 0;
 
-    width: 50%;
+    width: 40%;
 
     img {
       width: 120px;
@@ -47,6 +47,8 @@ $comment-size: 2rem; //20px
     display: flex;
     flex-direction: column;
     padding: 1rem;
+
+    width: 60%;
   
 
     .name_container {
