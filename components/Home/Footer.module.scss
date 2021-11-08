@@ -1,0 +1,27 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$title-size: 3rem; //30px
+
+.footer_container {
+    width: 100%;
+    height: 160px;
+
+    color: white;
+    font-weight: 600;
+    font-size: $title-size;
+    background: $violet-dark;
+
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.text_container {
+    width: 100%;
+}
