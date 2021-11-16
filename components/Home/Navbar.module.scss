@@ -10,7 +10,7 @@ $golden: #fec260;
 $font-button: 2rem; //20px
 
 .navbar_backdrop {
-  min-height: 5.125rem;
+  min-height: 9vh;
   width: 100%;
   background: $violet-dark;
 
@@ -20,7 +20,7 @@ $font-button: 2rem; //20px
 }
 
 .navbar_container {
-  min-height: 5.125rem;
+  min-height: 9vh;
   width: 1120px;
 
   display: flex;
