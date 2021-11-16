@@ -17,18 +17,10 @@ export default function Top(params) {
         </div>
       </div>
 
-      {/* <span className={styles.background_figure1}>
-        <img src="/backdrop/shapes/eli.png"></img>
-      </span>
-      <span className={styles.background_figure2}>
-        <img src="/backdrop/shapes/rec.png"></img>
-      </span>
-      <span className={styles.background_figure3}>
-        <img src="/backdrop/shapes/star.png"></img>
-      </span>
-      <span className={styles.background_figure4}>
-        <img src="/backdrop/shapes/tri.png"></img>
-      </span> */}
+      <div className={styles.background_figure1}></div>
+      <span className={styles.background_figure2}></span>
+      <span className={styles.background_figure3}></span>
+      <span className={styles.background_figure4}></span>
       <span className={styles.background_caption1}></span>
       <span className={styles.background_caption2}></span>
       <span className={styles.background_caption3}></span>
