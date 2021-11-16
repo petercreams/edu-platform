@@ -46,7 +46,9 @@ export default function Navbar(params) {
             </ul>
 
             <div className={styles.button_container}>
-              <button>Sign In</button>
+              <form action="/user/login">
+                <button>Sign In</button>
+              </form>
             </div>
           </div>
         </div>
