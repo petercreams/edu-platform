@@ -5,7 +5,7 @@
   flex-direction: column;
 
   width: 1440px;
-  margin-top: 32rem;
+  margin-top: 16rem;
 }
 
 .title1_container {
@@ -45,6 +45,8 @@
   justify-content: center;
   flex-direction: row;
   gap: 4rem;
+
+  //   flex-flow: column wrap;
 }
 
 /// *** Teachers section ***
@@ -81,8 +83,6 @@
 .references {
   display: flex;
 
-  justify-content: center;
-
   flex-direction: column;
 
   width: 1440px;
@@ -96,15 +96,21 @@
 }
 
 .references_container {
-  display: flex;
-  flex-direction: column;
-  // margin-top: 48.5rem;
+  align-self: center;
+  width: 800px;
+  margin-top: 8rem;
 }
 
 .references_items {
-  margin: 0 auto;
-  .references_items_1 {
-    margin: 8rem 0;
+  display: flex;
+  flex-direction: column;
+  .references_items_left {
+    margin-bottom: 8rem;
+    align-self: flex-start;
+  }
+  .references_items_right {
+    margin-bottom: 8rem;
+    align-self: flex-end;
   }
 }
 
@@ -127,5 +133,5 @@
 /// *** Footer section ***
 
 .footer_container {
-    margin-top: 8rem;
+  margin-top: 8rem;
 }

@@ -103,7 +103,7 @@ export default function Home() {
 
               <div className={styles.references_container}>
                 <div className={styles.references_items}>
-                  <div className={styles.references_items_1}>
+                  <div className={styles.references_items_left}>
                     <CardReferences
                       img={"/teachers/teacher1.jpg"}
                       name={"Piotr Śmietanka"}
@@ -112,7 +112,7 @@ export default function Home() {
                     />
                   </div>
 
-                  <div className={styles.references_items_1}>
+                  <div className={styles.references_items_right}>
                     <CardReferences
                       img={"/teachers/teacher1.jpg"}
                       name={"Piotr Śmietanka"}
@@ -121,7 +121,7 @@ export default function Home() {
                     />
                   </div>
 
-                  <div className={styles.references_items_1}>
+                  <div className={styles.references_items_left}>
                     <CardReferences
                       img={"/teachers/teacher1.jpg"}
                       name={"Piotr Śmietanka"}
@@ -130,7 +130,7 @@ export default function Home() {
                     />
                   </div>
 
-                  <div className={styles.references_items_1}>
+                  <div className={styles.references_items_right}>
                     <CardReferences
                       img={"/teachers/teacher1.jpg"}
                       name={"Piotr Śmietanka"}
