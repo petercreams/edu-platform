@@ -1,0 +1,52 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$title-size: 2.5rem; //25px
+$desc-size: 2.1rem; //21px
+$skills-size: 2rem; //20px
+
+.auth_container {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+}
+
+.contact_left_bar {
+  height: 100%;
+  width: 40%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $margin;
+
+  .image_container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    margin: auto auto;
+    width: 50%;
+    height: 50%;
+  }
+}
+
+.contact_right_bar {
+  height: 100%;
+  width: 60%;
+
+  background-image: url("/backdrop/paper-background.svg");
+  background-color: white;
+}
