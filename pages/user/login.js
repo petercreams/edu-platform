@@ -1,7 +1,5 @@
-import CardContact from "../../components/Home/CardContact";
-import Navbar from "../../components/Home/Navbar";
 import TitleCard from "../../components/Home/TitleCard";
-import LoginForm from "../../components/User/LoginForm";
+import CardLogin from "../../components/User/CardLogin";
 
 import styles from "../../styles/user/login.module.scss";
 
@@ -24,7 +22,7 @@ export default function Login(props, { children }) {
             <TitleCard title="Login Page" />
           </div>
           <div className={styles.form_container}>
-            <CardContact />
+            <CardLogin />
           </div>
 
           <div className={styles.login_page_ellipse}></div>
