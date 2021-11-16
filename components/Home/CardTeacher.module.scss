@@ -6,12 +6,12 @@ $golden: #fec260;
 
 // set basic font sizes
 // root: 10px
-$title-size: 3rem; //30px
-$desc-size: 2.5rem; //25px
+$title-size: 2.5rem; //25px
+$desc-size: 2.1rem; //21px
 $skills-size: 2rem; //20px
 
 .card_container {
-  width: 960px;
+  width: 800px;
   height: 480px;
 
   background: #fafafa;
@@ -20,9 +20,28 @@ $skills-size: 2rem; //20px
   border-radius: 10px;
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.top_card {
+
+  width: 100%;
+  height: 80px;
+
+
+  background: $golden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.bottom_card {
+
+  display: flex;
+  width: 100%;
+  height: 400px;
+
 }
 
 .img_container {
@@ -35,8 +54,8 @@ $skills-size: 2rem; //20px
   width: 50%;
 
   img {
-    width: 320px;
-    height: 320px;
+    width: 240px;
+    height: 240px;
 
     border: 3px solid $golden;
     border-radius: 50%;
@@ -56,7 +75,7 @@ $skills-size: 2rem; //20px
   position: relative;
 
   .name_container {
-    position: absolute;
+
 
     font-size: $title-size;
     font-weight: 600;
@@ -64,18 +83,20 @@ $skills-size: 2rem; //20px
     width: 100%;
     height: 80px;
 
-    top: 80px;
+
 
     padding: 0 5rem;
 
+    display: flex;
+    align-items: center;
   }
 
   .description_container {
-    position: absolute;
+
 
     width: 100%;
     height: 240px;
-    top: 160px;
+
 
     ul {
       padding: 0 5rem;
@@ -98,7 +119,7 @@ $skills-size: 2rem; //20px
   }
 
   .skills_container {
-    position: absolute;
+
 
     font-size: $skills-size;
     width: 100%;
@@ -111,7 +132,6 @@ $skills-size: 2rem; //20px
 
     padding: 0 5rem;
 
-    bottom: 0;
 
     color: $golden;
   }
