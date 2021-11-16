@@ -1,4 +1,4 @@
-$paper-height: 800px;
+$paper-height: 100%;
 
 .paperContainer {
     background-image: url("/backdrop/paper-margins.svg");
@@ -8,6 +8,7 @@ $paper-height: 800px;
     // box-shadow: 0 0 5px black;
     height: $paper-height;
     max-width: 1440px;
+
     
     // display: grid;
     // grid-template-columns: repeat(18, 80px);
