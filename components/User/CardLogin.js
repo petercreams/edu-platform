@@ -23,26 +23,25 @@ export default function Login(props) {
       setErrorBlank(true);
     } else if (
       (formData.password.length < 6) &
-      (formData.password.length > 0)
+      (formData.password.length >= 0)
     ) {
       setErrorPassword(true);
-    }
-
-    if ((errorBlank == false) & (errorPassword == false)) {
+    } else if ((errorBlank == false) & (errorPassword == false)) {
       setSubmit(true);
-
-      userEmail.current.value = null;
-      userPassword.current.value = null;
     }
     console.log(formData);
   };
 
   // disappear send alert after 3s
   useEffect(() => {
-    if (submit)
+    if (submit) {
+      console.log("submit: " + submit);
       setTimeout(() => {
         setSubmit(false);
+        userEmail.current.value = null;
+        userPassword.current.value = null;
       }, 3000);
+    }
   }, [submit]);
 
   //disappear error alert after 3s
@@ -76,10 +75,12 @@ export default function Login(props) {
         </div>
 
         <div className={styles.alert_container}>
-          {submit && <p>Form sent successfully</p>}
-          {errorBlank && <p>Fill all the blanks to log in</p>}
-          {errorPassword && (
+          {errorBlank ? (
+            <p>Fill all the blanks to log in</p>
+          ) : errorPassword ? (
             <p>Password length must be at least 6 characters long</p>
+          ) : (
+            submit && <p>Form sent successfully</p>
           )}
         </div>
 
