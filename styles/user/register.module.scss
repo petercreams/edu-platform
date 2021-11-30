@@ -1,0 +1,84 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$title-size: 2.5rem; //25px
+$desc-size: 2.1rem; //21px
+$skills-size: 2rem; //20px
+
+.auth_container {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+}
+
+.contact_left_bar {
+  height: 100%;
+  width: 40%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $margin;
+
+  img {
+    width: 70%;
+    height: 70%;
+  }
+}
+
+.contact_right_bar {
+  position: relative;
+
+  height: 100vh;
+  width: 60%;
+
+//   background-image: url("/backdrop/paper-background.svg");
+  background-color: white;
+
+  display: flex;
+
+  flex-direction: column;
+
+  .login_page_ellipse {
+    position: absolute;
+    overflow: hidden;
+
+    bottom: 0;
+    right: 0;
+
+    width: 100%;
+    height: 12vh;
+
+    // background: rgba(254, 194, 96, 0.1);
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 110%;
+      height: 200%;
+      background-color: rgba(254, 194, 96, 0.9);
+      transform: rotate(-3deg) translate(10%, 6%);
+      border-radius: 50%;
+
+      //   transform: translate(10%, 60%);
+    }
+  }
+
+  .title_container {
+    display: flex;
+    justify-content: center;
+    margin: 8rem 0;
+  }
+
+  .form_container {
+    align-self: center;
+    justify-self: center;
+  }
+}
