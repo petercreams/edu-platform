@@ -32,19 +32,16 @@ export default function Login(props) {
       formData.name == ""
     ) {
       setErrorBlank(true);
-    }
-
-    if (formData.name.length < 6) {
+    } else if (formData.name.length < 6) {
       setErrorName(true);
-    }
-    if ((formData.password.length < 6) & (formData.password.length >= 0)) {
+    } else if (
+      (formData.password.length < 6) &
+      (formData.password.length >= 0)
+    ) {
       setErrorPassword(true);
-    }
-
-    if (formData.password !== formData.confirmPassword) {
+    } else if (formData.password !== formData.confirmPassword) {
       setErrorConfirmPassword(true);
-    }
-    if (
+    } else if (
       (errorBlank == false) &
       (errorPassword == false) &
       (errorConfirmPassword == false)
@@ -61,10 +58,12 @@ export default function Login(props) {
 
   // disappear send alert after 3s
   useEffect(() => {
-    if (submit)
+    if (submit) {
+      console.log("submit: " + submit);
       setTimeout(() => {
         setSubmit(false);
       }, 3000);
+    }
   }, [submit]);
 
   //disappear error alert after 3s
@@ -126,14 +125,6 @@ export default function Login(props) {
         </div>
 
         <div className={styles.alert_container}>
-          {/* {submit && <p>Form sent successfully</p>}
-          {errorBlank && <p>Fill all the blanks to log in</p>}
-          {errorPassword && (
-            <p>Password length must be at least 6 characters long</p>
-          )}
-          {errorConfirmPassword && (
-            <p>Passwords don't match. Check spelling.</p>
-          )} */}
           {errorBlank ? (
             <p>Fill all the blanks to log in</p>
           ) : errorName ? (
