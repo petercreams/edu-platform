@@ -19,21 +19,20 @@ export default function Login(props) {
     };
 
     // form data validation
-    if (
-      (formData.email !== "") &
-      (formData.password !== "") &
-      (formData.password.length >= 6)
+    if (formData.email == "" || formData.password == "") {
+      setErrorBlank(true);
+    } else if (
+      (formData.password.length < 6) &
+      (formData.password.length > 0)
     ) {
+      setErrorPassword(true);
+    }
+
+    if ((errorBlank == false) & (errorPassword == false)) {
       setSubmit(true);
 
       userEmail.current.value = null;
       userPassword.current.value = null;
-    }
-
-    if ((formData.email == "") || (formData.password == "")) {
-      setErrorBlank(true);
-    } else if ((formData.password.length < 6) & (formData.password.length > 0)) {
-      setErrorPassword(true);
     }
     console.log(formData);
   };
