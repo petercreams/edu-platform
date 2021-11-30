@@ -12,7 +12,7 @@ $alert-size: 1.6rem; //16px
 
 .contact_container {
   width: 640px;
-  height: 320px;
+  height: 400px;
 
   background: #ffffff;
   border: 1px solid #000000;
@@ -67,4 +67,19 @@ $alert-size: 1.6rem; //16px
   height: 20px;
   text-align: center;
   align-self: center;
+}
+
+.register_container {
+  font-size: $alert-size;
+  text-align: center;
+
+  a {
+    color: $margin;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      color: lighten($margin, 10%);
+    }
+  }
 }
