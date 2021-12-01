@@ -1,0 +1,48 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$name-size: 2.5rem; //25px
+$menu-size: 1.8rem; //20px
+$text-size: 1.6rem; //16px
+
+.optionCard {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 40%;
+  height: 30%;
+
+  background: #ffffff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+
+  &:hover {
+      cursor: pointer;
+      box-shadow: 0px 4px 4px $golden;
+  }
+
+  .icon_container {
+    height: 5rem;
+    width: 5rem;
+  }
+  
+  .arrow_container {
+    height: 3rem;
+    width: 3rem;
+  }
+
+  h2 {
+    font-size: $text-size;
+    color: $margin;
+  }
+}
+
+
