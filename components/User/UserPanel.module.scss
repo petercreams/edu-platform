@@ -1,0 +1,62 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$title-size: 3.6rem;
+$name-size: 2.5rem; //25px
+$menu-size: 1.8rem; //20px
+$text-size: 1.6rem; //16px
+
+.userPanel_container {
+    width: 280px;
+    height: 60%;
+  
+    background: #ffffff;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+  
+    padding: 2rem 0;
+  
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+  
+  
+    img {
+      border-radius: 50%;
+      width: 173px;
+    }
+  
+    h1 {
+      font-size: $name-size;
+    }
+  
+    a {
+      color: black;
+      font-size: $menu-size;
+    }
+  }
+
+  #logout {
+    color: $margin;
+    font-weight: bold;
+}
+
+#account {
+    color: $golden;
+    font-weight: bold;
+}
+
+#courses {
+    &:hover {
+        color: $golden;
+        font-weight: bold; 
+    }
+}
