@@ -10,7 +10,7 @@ $golden: #fec260;
 $font-button: 2rem; //20px
 
 .navbar_backdrop {
-  min-height: 9vh;
+  min-height: 10vh;
   width: 100%;
   background: $violet-dark;
 
@@ -20,7 +20,7 @@ $font-button: 2rem; //20px
 }
 
 .navbar_container {
-  min-height: 9vh;
+  min-height: 10vh;
   width: 1120px;
 
   display: flex;
@@ -59,10 +59,16 @@ $font-button: 2rem; //20px
   }
 }
 
+#logout {
+  font-weight: bold;
+  color: $margin;
+}
+
 .button_container {
   margin: 1.5rem;
   button {
     display: block;
+    border: none;
     width: 136px;
     height: 58px;
     background: $golden;
@@ -75,6 +81,68 @@ $font-button: 2rem; //20px
     &:hover {
       cursor: pointer;
       background: darken($golden, 10%);
+    }
+  }
+}
+
+.profile_container {
+  margin: 1.5rem;
+  height: 5vh;
+
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+
+  position: relative;
+
+  gap: 1rem;
+
+  #profile_img {
+    border-radius: 50%;
+    height: 100%;
+
+    cursor: pointer;
+  }
+
+  #more {
+    height: 1.5vh;
+    align-self: center;
+
+    cursor: pointer;
+  }
+}
+
+.profile_modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 280px;
+  height: 180px;
+
+  z-index: 100;
+
+  position: absolute;
+  top: 6vh;
+  right: 0;
+
+  background: #ffffff;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 5px;
+
+  a {
+    display: flex;
+    color: black;
+    flex-grow: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      cursor: pointer;
+      background-color: lighten($golden, 5%);
+      border-radius: inherit;
+      color: white;
     }
   }
 }
