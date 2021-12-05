@@ -102,6 +102,10 @@ $font-button: 2rem; //20px
     height: 100%;
 
     cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 
   #more {
@@ -109,6 +113,10 @@ $font-button: 2rem; //20px
     align-self: center;
 
     cursor: pointer;
+    
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
 
@@ -130,7 +138,7 @@ $font-button: 2rem; //20px
   box-sizing: border-box;
   border-radius: 5px;
 
-  a {
+  p {
     display: flex;
     color: black;
     flex-grow: 1;

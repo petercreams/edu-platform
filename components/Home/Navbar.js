@@ -2,10 +2,15 @@ import styles from "./Navbar.module.scss";
 import { useState, useEffect } from "react";
 
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-export default function Navbar(params) {
+export default function Navbar(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
+
+  var mode = props.mode;
+
+  const router = useRouter();
 
   const clickHandler = (e) => {
     if (!isClicked) {
@@ -38,34 +43,36 @@ export default function Navbar(params) {
           </div>
 
           <div className={styles.navbar_links}>
-            <ul>
-              <li>
-                <Link href="#about">
-                  <a>About</a>
-                </Link>
-              </li>
+            {mode !== "account" ? (
+              <ul>
+                <li>
+                  <Link href="#about">
+                    <a>About</a>
+                  </Link>
+                </li>
 
-              <li>
-                <Link href="#courses">
-                  <a>Courses</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="#teachers">
-                  <a>Teachers</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="#references">
-                  <a>References</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="#contact">
-                  <a>Contact</a>
-                </Link>
-              </li>
-            </ul>
+                <li>
+                  <Link href="#courses">
+                    <a>Courses</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#teachers">
+                    <a>Teachers</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#references">
+                    <a>References</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#contact">
+                    <a>Contact</a>
+                  </Link>
+                </li>
+              </ul>
+            ) : null}
 
             {isLoggedIn ? (
               <div className={styles.profile_container}>
@@ -83,29 +90,30 @@ export default function Navbar(params) {
 
                 {isClicked && (
                   <div className={styles.profile_modal}>
-                    <Link href="/user/account">
-                      <a style={{ borderBottom: "1px solid #000000" }}>
-                        My account
-                      </a>
-                    </Link>
-
-                  <Link href="/user/courses">
-                  <a style={{ borderBottom: "1px solid #000000" }}>
+                    <p
+                      onClick={() => router.push("/user/account")}
+                      style={{ borderBottom: "1px solid #000000" }}
+                    >
+                      My account
+                    </p>
+                    <p
+                      onClick={() => router.push("/user/courses")}
+                      style={{ borderBottom: "1px solid #000000" }}
+                    >
                       My courses
-                    </a>
-                  </Link>
-                    
-                    <a id={styles.logout}>Log Out</a>
+                    </p>
+
+                    <p onClick={() => setIsLoggedIn(false)} id={styles.logout}>Log Out</p>
                   </div>
                 )}
               </div>
             ) : (
               <div className={styles.button_container}>
-                <Link href="/user/login">
-                  <a>
+                {/* <Link href="/user/login"> */}
+                  <p onClick={() => router.push("/user/login")}>
                     <button>Sign In</button>
-                  </a>
-                </Link>
+                  </p>
+                {/* </Link> */}
               </div>
             )}
           </div>
