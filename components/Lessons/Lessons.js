@@ -2,43 +2,43 @@ import LessonCard from "./LessonCard";
 
 const lessons = [
   {
-    id: "123",
+    id: "1",
     sectionNum: "1",
     sectionName: "Numbers",
     subject: "Introduction to numbers",
   },
   {
-    id: "123",
+    id: "2",
     sectionNum: "1",
     sectionName: "Numbers",
     subject: "Introduction to numbers",
   },
   {
-    id: "123",
+    id: "3",
     sectionNum: "1",
     sectionName: "Numbers",
     subject: "Introduction to numbers",
   },
   {
-    id: "123",
+    id: "4",
     sectionNum: "1",
     sectionName: "Numbers",
     subject: "Introduction to numbers",
   },
   {
-    id: "123",
+    id: "5",
     sectionNum: "1",
     sectionName: "Numbers",
     subject: "Introduction to numbers",
   },
   {
-    id: "123",
+    id: "6",
     sectionNum: "1",
     sectionName: "Numbers",
     subject: "Introduction to numbers",
   },
   {
-    id: "123",
+    id: "7",
     sectionNum: "1",
     sectionName: "Numbers",
     subject: "Introduction to numbers",
