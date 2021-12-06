@@ -21,39 +21,6 @@ $text-size: 1.6rem; //16px
   height: 100%;
 }
 
-.left_bar {
-  width: 280px;
-  height: 60%;
-
-  background: #ffffff;
-  border: 1px solid #000000;
-  box-sizing: border-box;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-
-  padding: 2rem 0;
-
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  align-items: center;
-
-
-  img {
-    border-radius: 50%;
-    width: 173px;
-  }
-
-  h1 {
-    font-size: $name-size;
-  }
-
-  a {
-    color: black;
-    font-size: $menu-size;
-  }
-}
-
 .right_bar {
   display: flex;
   flex-direction: column;
@@ -74,60 +41,16 @@ $text-size: 1.6rem; //16px
     font-size: $title-size;
   }
 
-  .options_container {
+  .courses_container {
     width: 100%;
     height: 100%;
 
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: row;
+    gap: 5rem;
     align-items: center;
 
-    .optionCard {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-
-      width: 40%;
-      height: 20%;
-
-      background: #ffffff;
-      border: 1px solid #000000;
-      box-sizing: border-box;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 5px;
-    }
-
-    .icon_container {
-      border-radius: 50%;
-      height: $name-size;
-      width: $name-size;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-    }
-
-    h2 {
-      font-size: $text-size;
-      color: $margin;
-    }
+    overflow-y: scroll;
   }
-}
-
-#logout {
-    color: $margin;
-    font-weight: bold;
-}
-
-#account {
-    &:hover {
-        color: $golden;
-        font-weight: bold; 
-    }
-}
-
-#courses {
-    color: $golden;
-    font-weight: bold;
 }
