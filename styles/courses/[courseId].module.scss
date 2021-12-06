@@ -56,6 +56,7 @@ $text-size: 1.6rem; //16px
     display: flex;
 
     .options__item {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -73,6 +74,43 @@ $text-size: 1.6rem; //16px
           cursor: pointer;
           background: $golden;
           color: white;
+        }
+      }
+
+      .modal_container {
+        position: absolute;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        top: 5rem;
+        right: 0;
+
+        width: 11rem;
+
+        background: #ffffff;
+        border: 2px solid #000000;
+        box-sizing: border-box;
+        border-radius: 5px;
+
+        color: black;
+
+        ul {
+          list-style: none;
+          width: 100%;
+          font-weight: bold;
+        }
+
+        li {
+          text-align: center;
+
+          &:hover {
+            background-color: $golden;
+            border-radius: 5px;
+            cursor: pointer;
+            color:white;
+          }
         }
       }
     }
@@ -126,7 +164,7 @@ $text-size: 1.6rem; //16px
           min-width: 3rem;
           min-height: 3rem;
           background-color: white;
-          
+
           font-size: $menu-size;
         }
       }
