@@ -1,0 +1,151 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$title-size: 3.6rem;
+$name-size: 2.5rem; //25px
+$menu-size: 1.8rem; //20px
+$text-size: 1.6rem; //16px
+
+.courses_container {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+}
+
+.menu_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3vw;
+  flex-wrap: wrap;
+
+  height: 100%;
+}
+
+.right_bar {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+
+  width: 60%;
+  height: 80%;
+
+  background: #ffffff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+  padding: 6rem 6rem;
+
+  h1 {
+    font-size: $title-size;
+  }
+
+  .options_container {
+    width: 100%;
+    font-size: $menu-size;
+
+    gap: 10rem;
+
+    display: flex;
+
+    .options__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-grow: 1;
+
+      span {
+        background: #ffffff;
+        border: 2px solid #000000;
+        box-sizing: border-box;
+        border-radius: 20px;
+        padding: 0.5rem 5rem;
+        font-weight: bold;
+
+        &:hover {
+          cursor: pointer;
+          background: $golden;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .lessons_container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+
+    overflow-y: scroll;
+
+    .lesson__item {
+      width: 80%;
+      height: 40%;
+      min-height: 15rem;
+
+      background: #ffffff;
+      border: 1px solid #000000;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+
+      &:hover {
+        cursor: pointer;
+        box-shadow: 0px 4px 4px $golden;
+      }
+
+      .lesson__id {
+        background: $margin;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 30%;
+
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          border-radius: 50%;
+          color: black;
+          font-weight: bold;
+          border: 2px solid #000000;
+          min-width: 3rem;
+          min-height: 3rem;
+          background-color: white;
+          
+          font-size: $menu-size;
+        }
+      }
+
+      .lesson__data {
+        width: 100%;
+        height: 70%;
+
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+        font-weight: bold;
+        font-size: $menu-size;
+
+        #lesson_subject {
+          color: $margin;
+        }
+      }
+    }
+  }
+}
