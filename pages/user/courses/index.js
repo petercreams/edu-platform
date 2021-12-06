@@ -1,12 +1,13 @@
 import Navbar from "../../../components/Home/Navbar";
 import CoursesPage from "../../../components/User/CoursesPage";
-import styles from "../../../styles/user/account.module.scss";
+import styles from "../../../styles/user/courses.module.scss";
 
-export default function Account(props, { children }) {
+export default function Courses(props, { children }) {
+  console.log("Courses loaded");
   return (
     <>
-      <div className={styles.account_container}>
-        <Navbar />
+      <div className={styles.courses_container}>
+        <Navbar mode={"account"}/>
         <CoursesPage />
       </div>
     </>
