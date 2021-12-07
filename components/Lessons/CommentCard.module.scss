@@ -1,0 +1,70 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$title-size: 3.6rem;
+$name-size: 2.5rem; //25px
+$menu-size: 1.8rem; //20px
+$text-size: 1.6rem; //16px
+
+.note__item {
+  display: flex;
+  justify-content: flex-start;
+  gap: 3rem;
+  width: 100%;
+
+  .timestamp_container {
+    color: white;
+
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: $text-size;
+      font-weight: bold;
+      background-color: $golden;
+      border-radius: 3rem;
+      padding: 1rem 3rem;
+      width: 8rem;
+      height: 5rem;
+    }
+  }
+  .options_container {
+    display: flex;
+    gap: 1rem;
+    img {
+      height: 2rem;
+      width: 2rem;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .note_container {
+    flex-grow: 1;
+  }
+
+  .note_bar {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 1rem 0;
+  }
+
+  .text_container {
+    background: #eae9e9;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    padding: 2rem;
+    width: 100%;
+
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}
