@@ -65,6 +65,10 @@ $text-size: 1.6rem; //16px
       width: 100%;
       height: 100%;
 
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
       input {
         width: 400px;
         height: 50px;
