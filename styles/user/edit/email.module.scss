@@ -1,0 +1,109 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$title-size: 3.6rem;
+$name-size: 2.5rem; //25px
+$menu-size: 1.8rem; //20px
+$text-size: 1.6rem; //16px
+
+.account_container {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+}
+
+.menu_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3vw;
+  flex-wrap: wrap;
+
+  height: 100%;
+}
+
+.right_bar {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+
+  width: 60%;
+  height: 80%;
+
+  background: #ffffff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+  padding: 6rem 6rem;
+
+  h1 {
+    font-size: $title-size;
+  }
+
+  p {
+    font-size: $text-size;
+  }
+
+  .form_container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 5%;
+
+    form {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      input {
+        width: 400px;
+        height: 50px;
+        background: #ffffff;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        text-indent: 1rem;
+      }
+
+      .buttons_container {
+        position: absolute;
+        display: flex;
+
+        right: 0;
+        bottom: 0;
+        button {
+          margin: 0 2rem;
+          display: block;
+          border: none;
+          width: 13rem;
+          height: 6rem;
+          background: $golden;
+          border-radius: 10px;
+
+          color: white;
+          font-size: $menu-size;
+          font-weight: 600;
+
+          &:hover {
+            cursor: pointer;
+            background: darken($golden, 10%);
+          }
+        }
+
+        #long_button {
+          width: 22rem;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
