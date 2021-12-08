@@ -29,7 +29,7 @@ const comments = [
   },
   {
     id: "12",
-    timeStamp: "125",
+    timeStamp: "5",
     noteTitle: "Test3",
     noteText:
       "React jest fajny, aczkolwiek wymaga sporo pracy, żeby móc zacząć pisać coś sensownego. Na start trzeba umieć pisać w HTML, CSS i JS, dopiero wtedy można myśleć o tym, żeby próbować swoich sił w frameworku",
@@ -50,32 +50,37 @@ const opts = {
 export default function lessonId(props) {
   const [videoProps, setVideoProps] = useState({
     videoURL: "hl1dKxlRdiM",
-    currentTime: "0:00",
+    currentTime: "00:00",
     currentState: "1",
   });
 
-
   const sToTime = (seconds) => {
+
+    //cut decimal part
     let minutes = Math.trunc(seconds / 60);
+    let hours = Math.trunc(seconds / 3600);    
 
     if (minutes >= 60) {
       minutes = minutes % 60;
     }
 
-    let hours = Math.trunc(seconds / 3600);
-
     let secondsLeft = seconds - minutes * 60 - hours * 3600;
 
-
-    // Change display
+    // Change time display
+    if (seconds < 10) seconds = "0" + seconds;
     if (secondsLeft < 10) secondsLeft = "0" + secondsLeft;
     if (minutes < 10) minutes = "0" + minutes;
     if (minutes < 10) hours = "0" + hours;
 
-    console.log(seconds, minutes, hours, secondsLeft);
     if (seconds < 60) return `00:${seconds}`;
     else if ((minutes >= 1) & (hours < 1)) return `${minutes}:${secondsLeft}`;
     else if (hours >= 1) return `${hours}:${minutes}:${secondsLeft}`;
+  };
+
+  const videoOnReady = (e) => {
+    const player = e.target;
+    // when player is ready - start checking current time every sec
+    startInterval(player);
   };
 
   const videoOnPause = () => {
@@ -84,35 +89,20 @@ export default function lessonId(props) {
     });
   };
 
-  const videoOnPlay = (e) => {
-    const player = e.target;
-
+  const videoOnPlay = () => {
     setVideoProps((prevState) => {
       return { ...prevState, currentState: "1" };
     });
-
-    // setTimeout(() => {
-    //   if (videoProps.currentState == 1) {
-    //     setTimeout(() => {
-    //       console.log(videoProps.currentState, "isPlaying");
-    //       console.log(Math.round(player.getCurrentTime(), 0), "ms");
-    //       setVideoProps( (prevState) => {return {...prevState, currentTime: {}} });
-    //     }, [1000]);
-    //   }
-    // });
-
-    console.log(Math.round(player.getCurrentTime(), 0), "s");
-    let currentTime = player.getCurrentTime().toFixed(0);
-    currentTime = sToTime(currentTime);
-    console.log(currentTime, "current time");
-    setVideoProps((prevState) => {
-      return { ...prevState, currentTime: `${currentTime}` };
-    });
   };
 
-  //   useEffect(() => {
-  //     setVideoProps( (prevState) => {return {...prevState, currentTime: {}}});
-  //   }, [videoProps.currentState])
+  const startInterval = (player) => {
+    setInterval(() => {
+      let currentTime = player.getCurrentTime().toFixed(0);
+      setVideoProps((prevState) => {
+        return { ...prevState, currentTime: `${currentTime}` };
+      });
+    }, 1000);
+  };
 
   const addCommentHandler = () => {};
   return (
@@ -125,13 +115,14 @@ export default function lessonId(props) {
           <YouTube
             videoId={videoProps.videoURL}
             opts={opts}
+            onReady={videoOnReady}
             onPlay={videoOnPlay}
             onPause={videoOnPause}
           />
         </div>
         <div className={styles.notes_container}>
           <div className={styles.notes_bar}>
-            <p>{`Make your notes at ${videoProps.currentTime}...`}</p>
+            <p>Make your notes at {sToTime(videoProps.currentTime)}...</p>
             <div onClick={addCommentHandler} className={styles.icon_container}>
               <img src="/icons/add.svg" />
             </div>
