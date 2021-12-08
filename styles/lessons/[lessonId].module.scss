@@ -30,6 +30,9 @@ $text-size: 1.6rem; //16px
   }
 
   .video_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50%;
     height: 70%;
     // min-height: 41rem;
