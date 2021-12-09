@@ -6,6 +6,8 @@ import YouTube from "react-youtube";
 
 import styles from "../../../../../styles/lessons/[lessonId].module.scss";
 
+// TODO: dodać sekcje: quiz, zadania do filmu ( w przyszłości pasek z boku z: praca domowa)
+
 const comments = [
   {
     id: "123",
@@ -49,16 +51,18 @@ const opts = {
 
 export default function lessonId(props) {
   const [videoProps, setVideoProps] = useState({
+    target: "",
     videoURL: "hl1dKxlRdiM",
     currentTime: "00:00",
     currentState: "1",
   });
 
-  const sToTime = (seconds) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const sToTime = (seconds) => {
     //cut decimal part
     let minutes = Math.trunc(seconds / 60);
-    let hours = Math.trunc(seconds / 3600);    
+    let hours = Math.trunc(seconds / 3600);
 
     if (minutes >= 60) {
       minutes = minutes % 60;
@@ -79,20 +83,22 @@ export default function lessonId(props) {
 
   const videoOnReady = (e) => {
     const player = e.target;
+
+    // add player DOM path to state object
+    setVideoProps((prevState) => {
+      return { ...prevState, target: player };
+    });
+
     // when player is ready - start checking current time every sec
     startInterval(player);
   };
 
-  const videoOnPause = () => {
-    setVideoProps((prevState) => {
-      return { ...prevState, currentState: "0" };
-    });
+  const pauseVideo = (player) => {
+    player.pauseVideo();
   };
 
-  const videoOnPlay = () => {
-    setVideoProps((prevState) => {
-      return { ...prevState, currentState: "1" };
-    });
+  const playVideo = (player) => {
+    player.playVideo();
   };
 
   const startInterval = (player) => {
@@ -104,10 +110,36 @@ export default function lessonId(props) {
     }, 1000);
   };
 
-  const addCommentHandler = () => {};
+  const addCommentHandler = () => {
+    openHandler();
+  };
+
+  const openHandler = () => {
+    pauseVideo(videoProps.target);
+    setIsModalOpen(true);
+  };
+
+  const closeHandler = () => {
+    playVideo(videoProps.target);
+    setIsModalOpen(false);
+  };
   return (
     <>
       <Navbar mode="account" />
+      {isModalOpen && (
+        <div id={styles.modal}>
+          {/* Modal Component */}
+          <div className={styles.modal_container}>
+            <div className={styles.top_bar}>
+              <h1>Add comment</h1>
+              <img onClick={closeHandler} src="/icons/exit.svg" />
+            </div>
+            <div className={styles.options_container}>
+              <p>Actual time: {sToTime(videoProps.currentTime)}</p>
+            </div>
+          </div>
+        </div>
+      )}
       <div className={styles.lesson_container}>
         <h1>Lesson Subject</h1>
 
@@ -116,14 +148,12 @@ export default function lessonId(props) {
             videoId={videoProps.videoURL}
             opts={opts}
             onReady={videoOnReady}
-            onPlay={videoOnPlay}
-            onPause={videoOnPause}
           />
         </div>
         <div className={styles.notes_container}>
-          <div className={styles.notes_bar}>
+          <div onClick={addCommentHandler} className={styles.notes_bar}>
             <p>Make your notes at {sToTime(videoProps.currentTime)}...</p>
-            <div onClick={addCommentHandler} className={styles.icon_container}>
+            <div className={styles.icon_container}>
               <img src="/icons/add.svg" />
             </div>
           </div>
