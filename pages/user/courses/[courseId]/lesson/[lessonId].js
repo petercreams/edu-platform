@@ -1,14 +1,14 @@
 import Navbar from "../../../../../components/Home/Navbar";
 import CommentCard from "../../../../../components/Lessons/CommentCard";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import YouTube from "react-youtube";
 
 import styles from "../../../../../styles/lessons/[lessonId].module.scss";
 
 // TODO: dodać sekcje: quiz, zadania do filmu ( w przyszłości pasek z boku z: praca domowa)
 
-const comments = [
+var comments = [
   {
     id: "123",
     timeStamp: "3520",
@@ -59,8 +59,11 @@ export default function lessonId(props) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const noteTitle = useRef();
+  const noteText = useRef();
+
   const sToTime = (seconds) => {
-    //cut decimal part
+    // Cut decimal part
     let minutes = Math.trunc(seconds / 60);
     let hours = Math.trunc(seconds / 3600);
 
@@ -110,8 +113,18 @@ export default function lessonId(props) {
     }, 1000);
   };
 
-  const addCommentHandler = () => {
-    openHandler();
+  const addNoteHandler = () => {
+    const data = {
+      id: "id",
+      timeStamp: videoProps.currentTime,
+      noteTitle: noteTitle.current.value,
+      noteText: noteText.current.value,
+    };
+
+    console.log(data);
+
+    comments.unshift(data);
+    setIsModalOpen(false);
   };
 
   const openHandler = () => {
@@ -136,6 +149,20 @@ export default function lessonId(props) {
             </div>
             <div className={styles.options_container}>
               <p>Actual time: {sToTime(videoProps.currentTime)}</p>
+              <input style={{fontWeight: "bold"}} ref={noteTitle} placeholder="Note Title" />
+              <textarea
+                ref={noteText}
+                placeholder="Note..."
+                type="text"
+                wrap="soft"
+              ></textarea>
+              <div className={styles.buttons_container}>
+                <button onClick={closeHandler}>Cancel</button>
+
+                <button onClick={addNoteHandler} id={styles.long_button}>
+                  Add Note
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -151,7 +178,7 @@ export default function lessonId(props) {
           />
         </div>
         <div className={styles.notes_container}>
-          <div onClick={addCommentHandler} className={styles.notes_bar}>
+          <div onClick={openHandler} className={styles.notes_bar}>
             <p>Make your notes at {sToTime(videoProps.currentTime)}...</p>
             <div className={styles.icon_container}>
               <img src="/icons/add.svg" />
