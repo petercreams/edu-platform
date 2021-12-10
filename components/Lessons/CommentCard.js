@@ -1,10 +1,10 @@
 import styles from "./CommentCard.module.scss";
 
-export default function CommentCard({ id, timeStamp, noteTitle, noteText, openDeleteNote, openEditNote }) {
+export default function CommentCard({ id, timeStamp, noteTitle, noteText, openDeleteNote, openEditNote, playVideoAt, sToTime }) {
   return (
     <div className={styles.note__item}>
       <div className={styles.timestamp_container}>
-        <p>{timeStamp}</p>
+        <p onClick={() => playVideoAt(timeStamp)}>{sToTime(timeStamp)}</p>
       </div>
       <div className={styles.note_container}>
         <div className={styles.note_bar}>
