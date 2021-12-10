@@ -52,6 +52,7 @@ const opts = {
   },
 };
 
+
 export default function lessonId(props) {
   const [videoProps, setVideoProps] = useState({
     target: "",
@@ -108,6 +109,10 @@ export default function lessonId(props) {
   const playVideo = (player) => {
     player.playVideo();
   };
+
+  const playVideoAt = (startSec) => {
+    videoProps.target.seekTo(startSec);
+  }
 
   const startInterval = (player) => {
     setInterval(() => {
@@ -275,11 +280,13 @@ export default function lessonId(props) {
               return (
                 <CommentCard
                   id={comment.id}
-                  timeStamp={sToTime(comment.timeStamp)}
+                  sToTime={sToTime}
+                  timeStamp={comment.timeStamp}
                   noteTitle={comment.noteTitle}
                   noteText={comment.noteText}
                   openEditNote={openEditNote}
                   openDeleteNote={openDeleteNote}
+                  playVideoAt={playVideoAt}
                 />
               );
             })}
