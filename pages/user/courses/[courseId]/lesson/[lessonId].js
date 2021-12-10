@@ -5,32 +5,33 @@ import { useState, useEffect, useRef } from "react";
 import YouTube from "react-youtube";
 
 import styles from "../../../../../styles/lessons/[lessonId].module.scss";
+import AddNoteModal from "../../../../../components/Lessons/AddNoteModal";
 
 // TODO: dodać sekcje: quiz, zadania do filmu ( w przyszłości pasek z boku z: praca domowa)
 
 var comments = [
   {
-    id: "123",
+    id: "1",
     timeStamp: "3520",
     noteTitle: "Test1",
     noteText: "Fajna ta funkcjonalność związana z pisaniem komentarzy? Najak",
   },
   {
-    id: "123",
+    id: "2",
     timeStamp: "4555",
     noteTitle: "Test2",
     noteText:
       "React jest fajny, aczkolwiek wymaga sporo pracy, żeby móc zacząć pisać coś sensownego. Na start trzeba umieć pisać w HTML, CSS i JS, dopiero wtedy można myśleć o tym, żeby próbować swoich sił w frameworku",
   },
   {
-    id: "123",
+    id: "3",
     timeStamp: "23",
     noteTitle: "Test3",
     noteText:
       "React jest fajny, aczkolwiek wymaga sporo pracy, żeby móc zacząć pisać coś sensownego. Na start trzeba umieć pisać w HTML, CSS i JS, dopiero wtedy można myśleć o tym, żeby próbować swoich sił w frameworku",
   },
   {
-    id: "12",
+    id: "4",
     timeStamp: "5",
     noteTitle: "Test3",
     noteText:
@@ -57,10 +58,33 @@ export default function lessonId(props) {
     currentState: "1",
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // TODO: add Modal States object
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [modalProps, setModalProps] = useState({
+    isAddNoteOpen: false,
+    isEditNoteOpen: false,
+    isDeleteNoteOpen: false,
+  });
+
+  const [selectedNote, setSelectedNote] = useState({
+    noteId: "",
+    noteTitle: "",
+    timeStamp: "",
+    noteText: "",
+  });
 
   const noteTitle = useRef();
   const noteText = useRef();
+
+  // On edit/delete note - open modal and set note values
+  useEffect(() => {
+    if (modalProps.isEditNoteOpen) {
+      console.log(selectedNote, "useEffect");
+      noteTitle.current.value = selectedNote.noteTitle;
+      noteText.current.value = selectedNote.noteText;
+    }
+  }, [modalProps.isEditNoteOpen, modalProps.isDeleteNoteOpen]);
 
   const sToTime = (seconds) => {
     // Cut decimal part
@@ -84,6 +108,10 @@ export default function lessonId(props) {
     else if (hours >= 1) return `${hours}:${minutes}:${secondsLeft}`;
   };
 
+  // ***********************
+  // *** PLAYER FUNCTIONS ***
+  // ***********************
+
   const videoOnReady = (e) => {
     const player = e.target;
 
@@ -104,6 +132,51 @@ export default function lessonId(props) {
     player.playVideo();
   };
 
+  // ***********************
+  // *** NOTES FUNCTIONS ***
+  // ***********************
+
+  const openDeleteNote = (id) => {
+    pauseVideo(videoProps.target);
+
+    let Note = comments.find((comment) => comment.id == id);
+
+    setSelectedNote((prevState) => {
+      return {
+        ...prevState,
+        noteId: id,
+        timeStamp: Note.timeStamp,
+        noteTitle: Note.noteTitle,
+        noteText: Note.noteText,
+      };
+    });
+    console.log("Note", Note);
+
+    setModalProps((prevState) => {
+      return { ...prevState, isDeleteNoteOpen: true };
+    });
+  };
+
+  const deleteNoteHandler = () => {
+    // set current note data
+    const currentNoteData = {
+      id: selectedNote.noteId,
+      noteTitle: noteTitle.current.value,
+      noteText: noteText.current.value,
+    };
+
+    // search for a selected Note and change its value to current
+    comments.forEach((comment, index) => {
+      if (comment.id == selectedNote.noteId) {
+        comments.splice(index, 1);
+      }
+    });
+
+    setModalProps((prevState) => {
+      return { ...prevState, isDeleteNoteOpen: false };
+    });
+  };
+
   const startInterval = (player) => {
     setInterval(() => {
       let currentTime = player.getCurrentTime().toFixed(0);
@@ -113,43 +186,100 @@ export default function lessonId(props) {
     }, 1000);
   };
 
+  const openAddNote = () => {
+    pauseVideo(videoProps.target);
+    setModalProps((prevState) => {
+      return { ...prevState, isAddNoteOpen: true };
+    });
+  };
+
   const addNoteHandler = () => {
     const data = {
-      id: "id",
+      id: (Math.random() * 10 + 10).toFixed(),
       timeStamp: videoProps.currentTime,
       noteTitle: noteTitle.current.value,
       noteText: noteText.current.value,
     };
 
-    console.log(data);
-
     comments.unshift(data);
-    setIsModalOpen(false);
+    setModalProps((prevState) => {
+      return { ...prevState, isAddNoteOpen: false };
+    });
   };
 
-  const openHandler = () => {
+  const openEditNote = (id) => {
     pauseVideo(videoProps.target);
-    setIsModalOpen(true);
+
+    let Note = comments.find((comment) => comment.id == id);
+
+    setSelectedNote((prevState) => {
+      return {
+        ...prevState,
+        noteId: id,
+        timeStamp: Note.timeStamp,
+        noteTitle: Note.noteTitle,
+        noteText: Note.noteText,
+      };
+    });
+    console.log("Note", Note);
+
+    setModalProps((prevState) => {
+      return { ...prevState, isEditNoteOpen: true };
+    });
+  };
+
+  const editNoteHandler = () => {
+    // set current note data
+    const currentNoteData = {
+      id: selectedNote.noteId,
+      noteTitle: noteTitle.current.value,
+      noteText: noteText.current.value,
+    };
+
+    // search for a selected Note and change its value to current
+    comments.forEach((comment, index) => {
+      if (comment.id == selectedNote.noteId) {
+        let Note = comments[index];
+
+        comments[index] = { ...Note, ...currentNoteData };
+      }
+    });
+
+    setModalProps((prevState) => {
+      return { ...prevState, isEditNoteOpen: false };
+    });
   };
 
   const closeHandler = () => {
     playVideo(videoProps.target);
-    setIsModalOpen(false);
+    setModalProps((prevState) => {
+      return {
+        ...prevState,
+        isAddNoteOpen: false,
+        isEditNoteOpen: false,
+        isDeleteNoteOpen: false,
+      };
+    });
   };
   return (
     <>
       <Navbar mode="account" />
-      {isModalOpen && (
+
+      {modalProps.isAddNoteOpen && (
         <div id={styles.modal}>
-          {/* Modal Component */}
-          <div className={styles.modal_container}>
+          {/* Modal Add note */}
+          <div className={styles.addComment_container}>
             <div className={styles.top_bar}>
               <h1>Add comment</h1>
               <img onClick={closeHandler} src="/icons/exit.svg" />
             </div>
             <div className={styles.options_container}>
-              <p>Actual time: {sToTime(videoProps.currentTime)}</p>
-              <input style={{fontWeight: "bold"}} ref={noteTitle} placeholder="Note Title" />
+              <p>Current time: {sToTime(videoProps.currentTime)}</p>
+              <input
+                style={{ fontWeight: "bold" }}
+                ref={noteTitle}
+                placeholder="Note Title"
+              />
               <textarea
                 ref={noteText}
                 placeholder="Note..."
@@ -161,6 +291,81 @@ export default function lessonId(props) {
 
                 <button onClick={addNoteHandler} id={styles.long_button}>
                   Add Note
+                </button>
+              </div>
+            </div>
+          </div>
+          {/* <AddNoteModal
+            noteText={noteText}
+            noteTitle={noteTitle}
+            sToTime={sToTime}
+            closeHandler={closeHandler}
+            videoProps={videoProps}
+            comments={comments}
+            setModalProps={setModalProps}
+          /> */}
+        </div>
+      )}
+      {modalProps.isEditNoteOpen && (
+        <div id={styles.modal}>
+          {/* Modal Component */}
+          <div className={styles.addComment_container}>
+            <div className={styles.top_bar}>
+              <h1>Edit comment</h1>
+              <img onClick={closeHandler} src="/icons/exit.svg" />
+            </div>
+            <div className={styles.options_container}>
+              <p>Current time: {sToTime(selectedNote.timeStamp)}</p>
+              <input
+                style={{ fontWeight: "bold" }}
+                ref={noteTitle}
+                placeholder="Note Title"
+              />
+              <textarea
+                ref={noteText}
+                placeholder="Note..."
+                type="text"
+                wrap="soft"
+              ></textarea>
+              <div className={styles.buttons_container}>
+                <button onClick={closeHandler}>Cancel</button>
+
+                <button onClick={editNoteHandler} id={styles.long_button}>
+                  Update Note
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {modalProps.isDeleteNoteOpen && (
+        <div id={styles.modal}>
+          {/* Modal Component */}
+          <div className={styles.addComment_container}>
+            <div className={styles.top_bar}>
+              <h1>Delete Note</h1>
+              <img onClick={closeHandler} src="/icons/exit.svg" />
+            </div>
+            <div className={styles.options_container}>
+              <p>Current time: {sToTime(selectedNote.timeStamp)}</p>
+              <input
+                style={{ fontWeight: "bold" }}
+                ref={noteTitle}
+                placeholder={selectedNote.noteTitle}
+                disabled="true"
+              />
+              <textarea
+                ref={noteText}
+                placeholder={selectedNote.noteText}
+                type="text"
+                wrap="soft"
+                disabled="true"
+              ></textarea>
+              <div className={styles.buttons_container}>
+                <button onClick={closeHandler}>Cancel</button>
+
+                <button onClick={deleteNoteHandler} id={styles.long_button}>
+                  Delete Note
                 </button>
               </div>
             </div>
@@ -178,7 +383,7 @@ export default function lessonId(props) {
           />
         </div>
         <div className={styles.notes_container}>
-          <div onClick={openHandler} className={styles.notes_bar}>
+          <div onClick={openAddNote} className={styles.notes_bar}>
             <p>Make your notes at {sToTime(videoProps.currentTime)}...</p>
             <div className={styles.icon_container}>
               <img src="/icons/add.svg" />
@@ -192,6 +397,8 @@ export default function lessonId(props) {
                   timeStamp={sToTime(comment.timeStamp)}
                   noteTitle={comment.noteTitle}
                   noteText={comment.noteText}
+                  openEditNote={openEditNote}
+                  openDeleteNote={openDeleteNote}
                 />
               );
             })}
