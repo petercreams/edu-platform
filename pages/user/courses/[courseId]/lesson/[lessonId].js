@@ -6,6 +6,8 @@ import YouTube from "react-youtube";
 
 import styles from "../../../../../styles/lessons/[lessonId].module.scss";
 import AddNoteModal from "../../../../../components/Lessons/AddNoteModal";
+import EditNoteModal from "../../../../../components/Lessons/EditNoteModal";
+import DeleteNoteModal from "../../../../../components/Lessons/DeleteNoteModal";
 
 // TODO: dodać sekcje: quiz, zadania do filmu ( w przyszłości pasek z boku z: praca domowa)
 
@@ -58,9 +60,6 @@ export default function lessonId(props) {
     currentState: "1",
   });
 
-  // TODO: add Modal States object
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [modalProps, setModalProps] = useState({
     isAddNoteOpen: false,
     isEditNoteOpen: false,
@@ -86,28 +85,6 @@ export default function lessonId(props) {
     }
   }, [modalProps.isEditNoteOpen, modalProps.isDeleteNoteOpen]);
 
-  const sToTime = (seconds) => {
-    // Cut decimal part
-    let minutes = Math.trunc(seconds / 60);
-    let hours = Math.trunc(seconds / 3600);
-
-    if (minutes >= 60) {
-      minutes = minutes % 60;
-    }
-
-    let secondsLeft = seconds - minutes * 60 - hours * 3600;
-
-    // Change time display
-    if (seconds < 10) seconds = "0" + seconds;
-    if (secondsLeft < 10) secondsLeft = "0" + secondsLeft;
-    if (minutes < 10) minutes = "0" + minutes;
-    if (minutes < 10) hours = "0" + hours;
-
-    if (seconds < 60) return `00:${seconds}`;
-    else if ((minutes >= 1) & (hours < 1)) return `${minutes}:${secondsLeft}`;
-    else if (hours >= 1) return `${hours}:${minutes}:${secondsLeft}`;
-  };
-
   // ***********************
   // *** PLAYER FUNCTIONS ***
   // ***********************
@@ -132,51 +109,6 @@ export default function lessonId(props) {
     player.playVideo();
   };
 
-  // ***********************
-  // *** NOTES FUNCTIONS ***
-  // ***********************
-
-  const openDeleteNote = (id) => {
-    pauseVideo(videoProps.target);
-
-    let Note = comments.find((comment) => comment.id == id);
-
-    setSelectedNote((prevState) => {
-      return {
-        ...prevState,
-        noteId: id,
-        timeStamp: Note.timeStamp,
-        noteTitle: Note.noteTitle,
-        noteText: Note.noteText,
-      };
-    });
-    console.log("Note", Note);
-
-    setModalProps((prevState) => {
-      return { ...prevState, isDeleteNoteOpen: true };
-    });
-  };
-
-  const deleteNoteHandler = () => {
-    // set current note data
-    const currentNoteData = {
-      id: selectedNote.noteId,
-      noteTitle: noteTitle.current.value,
-      noteText: noteText.current.value,
-    };
-
-    // search for a selected Note and change its value to current
-    comments.forEach((comment, index) => {
-      if (comment.id == selectedNote.noteId) {
-        comments.splice(index, 1);
-      }
-    });
-
-    setModalProps((prevState) => {
-      return { ...prevState, isDeleteNoteOpen: false };
-    });
-  };
-
   const startInterval = (player) => {
     setInterval(() => {
       let currentTime = player.getCurrentTime().toFixed(0);
@@ -186,24 +118,36 @@ export default function lessonId(props) {
     }, 1000);
   };
 
+  const sToTime = (seconds) => {
+    // Cut decimal part
+    let minutes = Math.trunc(seconds / 60);
+    let hours = Math.trunc(seconds / 3600);
+
+    if (minutes >= 60) {
+      minutes = minutes % 60;
+    }
+
+    let secondsLeft = seconds - minutes * 60 - hours * 3600;
+
+    // Change time display
+    if (seconds < 10) seconds = "0" + seconds;
+    if (secondsLeft < 10) secondsLeft = "0" + secondsLeft;
+    if (minutes < 10) minutes = "0" + minutes;
+    if (minutes < 10) hours = "0" + hours;
+
+    if (seconds < 60) return `00:${seconds}`;
+    else if ((minutes >= 1) & (hours < 1)) return `${minutes}:${secondsLeft}`;
+    else if (hours >= 1) return `${hours}:${minutes}:${secondsLeft}`;
+  };
+
+  // ***********************
+  // *** NOTES FUNCTIONS ***
+  // **********************
+
   const openAddNote = () => {
     pauseVideo(videoProps.target);
     setModalProps((prevState) => {
       return { ...prevState, isAddNoteOpen: true };
-    });
-  };
-
-  const addNoteHandler = () => {
-    const data = {
-      id: (Math.random() * 10 + 10).toFixed(),
-      timeStamp: videoProps.currentTime,
-      noteTitle: noteTitle.current.value,
-      noteText: noteText.current.value,
-    };
-
-    comments.unshift(data);
-    setModalProps((prevState) => {
-      return { ...prevState, isAddNoteOpen: false };
     });
   };
 
@@ -228,25 +172,24 @@ export default function lessonId(props) {
     });
   };
 
-  const editNoteHandler = () => {
-    // set current note data
-    const currentNoteData = {
-      id: selectedNote.noteId,
-      noteTitle: noteTitle.current.value,
-      noteText: noteText.current.value,
-    };
+  const openDeleteNote = (id) => {
+    pauseVideo(videoProps.target);
 
-    // search for a selected Note and change its value to current
-    comments.forEach((comment, index) => {
-      if (comment.id == selectedNote.noteId) {
-        let Note = comments[index];
+    let Note = comments.find((comment) => comment.id == id);
 
-        comments[index] = { ...Note, ...currentNoteData };
-      }
+    setSelectedNote((prevState) => {
+      return {
+        ...prevState,
+        noteId: id,
+        timeStamp: Note.timeStamp,
+        noteTitle: Note.noteTitle,
+        noteText: Note.noteText,
+      };
     });
+    console.log("Note", Note);
 
     setModalProps((prevState) => {
-      return { ...prevState, isEditNoteOpen: false };
+      return { ...prevState, isDeleteNoteOpen: true };
     });
   };
 
@@ -261,6 +204,9 @@ export default function lessonId(props) {
       };
     });
   };
+
+  /////////////////////////////////////////////////////////////
+
   return (
     <>
       <Navbar mode="account" />
@@ -268,34 +214,7 @@ export default function lessonId(props) {
       {modalProps.isAddNoteOpen && (
         <div id={styles.modal}>
           {/* Modal Add note */}
-          <div className={styles.addComment_container}>
-            <div className={styles.top_bar}>
-              <h1>Add comment</h1>
-              <img onClick={closeHandler} src="/icons/exit.svg" />
-            </div>
-            <div className={styles.options_container}>
-              <p>Current time: {sToTime(videoProps.currentTime)}</p>
-              <input
-                style={{ fontWeight: "bold" }}
-                ref={noteTitle}
-                placeholder="Note Title"
-              />
-              <textarea
-                ref={noteText}
-                placeholder="Note..."
-                type="text"
-                wrap="soft"
-              ></textarea>
-              <div className={styles.buttons_container}>
-                <button onClick={closeHandler}>Cancel</button>
-
-                <button onClick={addNoteHandler} id={styles.long_button}>
-                  Add Note
-                </button>
-              </div>
-            </div>
-          </div>
-          {/* <AddNoteModal
+          <AddNoteModal
             noteText={noteText}
             noteTitle={noteTitle}
             sToTime={sToTime}
@@ -303,73 +222,35 @@ export default function lessonId(props) {
             videoProps={videoProps}
             comments={comments}
             setModalProps={setModalProps}
-          /> */}
+          />
         </div>
       )}
       {modalProps.isEditNoteOpen && (
         <div id={styles.modal}>
-          {/* Modal Component */}
-          <div className={styles.addComment_container}>
-            <div className={styles.top_bar}>
-              <h1>Edit comment</h1>
-              <img onClick={closeHandler} src="/icons/exit.svg" />
-            </div>
-            <div className={styles.options_container}>
-              <p>Current time: {sToTime(selectedNote.timeStamp)}</p>
-              <input
-                style={{ fontWeight: "bold" }}
-                ref={noteTitle}
-                placeholder="Note Title"
-              />
-              <textarea
-                ref={noteText}
-                placeholder="Note..."
-                type="text"
-                wrap="soft"
-              ></textarea>
-              <div className={styles.buttons_container}>
-                <button onClick={closeHandler}>Cancel</button>
-
-                <button onClick={editNoteHandler} id={styles.long_button}>
-                  Update Note
-                </button>
-              </div>
-            </div>
-          </div>
+          <EditNoteModal
+            noteText={noteText}
+            noteTitle={noteTitle}
+            sToTime={sToTime}
+            closeHandler={closeHandler}
+            videoProps={videoProps}
+            comments={comments}
+            setModalProps={setModalProps}
+            selectedNote={selectedNote}
+          />
         </div>
       )}
       {modalProps.isDeleteNoteOpen && (
         <div id={styles.modal}>
-          {/* Modal Component */}
-          <div className={styles.addComment_container}>
-            <div className={styles.top_bar}>
-              <h1>Delete Note</h1>
-              <img onClick={closeHandler} src="/icons/exit.svg" />
-            </div>
-            <div className={styles.options_container}>
-              <p>Current time: {sToTime(selectedNote.timeStamp)}</p>
-              <input
-                style={{ fontWeight: "bold" }}
-                ref={noteTitle}
-                placeholder={selectedNote.noteTitle}
-                disabled="true"
-              />
-              <textarea
-                ref={noteText}
-                placeholder={selectedNote.noteText}
-                type="text"
-                wrap="soft"
-                disabled="true"
-              ></textarea>
-              <div className={styles.buttons_container}>
-                <button onClick={closeHandler}>Cancel</button>
-
-                <button onClick={deleteNoteHandler} id={styles.long_button}>
-                  Delete Note
-                </button>
-              </div>
-            </div>
-          </div>
+          <DeleteNoteModal
+            noteText={noteText}
+            noteTitle={noteTitle}
+            sToTime={sToTime}
+            closeHandler={closeHandler}
+            videoProps={videoProps}
+            comments={comments}
+            setModalProps={setModalProps}
+            selectedNote={selectedNote}
+          />
         </div>
       )}
       <div className={styles.lesson_container}>
