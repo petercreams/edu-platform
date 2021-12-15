@@ -1,18 +1,43 @@
 import styles from "./CardRegister.module.scss";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/dist/client/link";
+import axios from "axios";
+import { useRouter } from "next/router";
 
-export default function Login(props) {
+export default function Register(props) {
   const [submit, setSubmit] = useState(false);
   const [errorBlank, setErrorBlank] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
   const [errorName, setErrorName] = useState(false);
   const [errorConfirmPassword, setErrorConfirmPassword] = useState(false);
+  const [serverResponse, setServerResponse] = useState("");
 
   const userEmail = useRef();
   const userPassword = useRef();
   const userConfirmPassword = useRef();
   const userName = useRef();
+
+  // Send data to the endpoint
+  const postData = async (email, password, name) => {
+    const data = { email: email, password: password, name: name };
+
+    axios
+      .post(process.env.NEXT_PUBLIC_SERVER_HOST + "/user/register", data)
+      .then((response) => {
+        console.log(data);
+        if (response.data.error) {
+          console.log(response.data.error);
+          setServerResponse(response.data.error);
+        } else {
+          console.log(response.data);
+          setSubmit(true);
+          router.push("/")
+        }
+      });
+    console.log(data);
+  };
+
+  const router = useRouter();
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -46,11 +71,7 @@ export default function Login(props) {
       (errorPassword == false) &
       (errorConfirmPassword == false)
     ) {
-      setSubmit(true);
-      //   userName.current.value = null;
-      //   userEmail.current.value = null;
-      //   userPassword.current.value = null;
-      //   userConfirmPassword.current.value = null;
+      postData(formData.email, formData.password, formData.name);
     }
 
     console.log(formData);
@@ -100,6 +121,14 @@ export default function Login(props) {
       }, 3000);
   }, [errorConfirmPassword]);
 
+    //disappear error alert after 3s
+    useEffect(() => {
+      if (serverResponse.length > 0)
+        setTimeout(() => {
+          setServerResponse("");
+        }, 3000);
+    }, [serverResponse]);
+
   return (
     <form method="post" onSubmit={submitHandler}>
       <div className={styles.contact_container}>
@@ -133,8 +162,10 @@ export default function Login(props) {
             <p>Password length must be at least 6 characters long</p>
           ) : errorConfirmPassword ? (
             <p>Passwords don't match. Check spelling.</p>
+          ) : serverResponse.length > 0 ? (
+            <p>{serverResponse}</p>
           ) : (
-            submit && <p>Form sent successfully</p>
+            submit && <p>Account has been created successfully</p>
           )}
         </div>
 
