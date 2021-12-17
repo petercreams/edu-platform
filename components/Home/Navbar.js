@@ -1,12 +1,26 @@
 import styles from "./Navbar.module.scss";
 import { useState, useEffect } from "react";
+import { useAuthProvider } from "../../firebase/AuthProvider";
+
+import { useUser } from "../../firebase/useUserNode";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function Navbar(props) {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+
+  const { logout } = useUser();
+  const user = useAuthProvider();
+
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(true);
+    } else setIsLoggedIn(false);
+  }, [user]);
+
+  console.log(user, "user");
 
   var mode = props.mode;
 
@@ -19,16 +33,6 @@ export default function Navbar(props) {
       setIsClicked(false);
     }
   };
-
-  // useEffect(() => {
-  //   console.log(isClicked);
-  //   if (isClicked) {
-  //     setTimeout(() => {
-  //       setIsClicked(false);
-  //       console.log(isClicked);
-  //     }, [5000]);
-  //   }
-  // }, [isClicked]);
 
   return (
     <nav>
@@ -43,7 +47,7 @@ export default function Navbar(props) {
           </div>
 
           <div className={styles.navbar_links}>
-            {mode !== "account" ? (
+            {mode == null ? (
               <ul>
                 <li>
                   <Link href="#about">
@@ -73,14 +77,15 @@ export default function Navbar(props) {
                 </li>
               </ul>
             ) : null}
-
             {isLoggedIn ? (
               <div className={styles.profile_container}>
                 {/* {should be taken from server} */}
                 <img
                   onClick={clickHandler}
                   id={styles.profile_img}
-                  src="/users/user.jpg"
+                  src={
+                    user.photoURL ? user.photoURL : "/icons/default_photo.jpg"
+                  }
                 />
                 <img
                   onClick={clickHandler}
@@ -103,17 +108,37 @@ export default function Navbar(props) {
                       My courses
                     </p>
 
-                    <p onClick={() => setIsLoggedIn(false)} id={styles.logout}>Log Out</p>
+                    <p
+                      onClick={() => {
+                        setIsLoggedIn(false);
+                        logout();
+                      }}
+                      id={styles.logout}
+                    >
+                      Log Out
+                    </p>
+                  </div>
+                )}
+                {isClicked && mode == "admin" && (
+                  <div className={styles.profile_modal}>
+                    <p
+                      onClick={() => router.push("/user/admin")}
+                      style={{ borderBottom: "1px solid #000000" }}
+                    >
+                      Admin Panel
+                    </p>
+
+                    <p onClick={() => setIsLoggedIn(false)} id={styles.logout}>
+                      Log Out
+                    </p>
                   </div>
                 )}
               </div>
             ) : (
               <div className={styles.button_container}>
-                {/* <Link href="/user/login"> */}
-                  <p onClick={() => router.push("/user/login")}>
-                    <button>Sign In</button>
-                  </p>
-                {/* </Link> */}
+                <p onClick={() => router.push("/user/login")}>
+                  <button>Sign In</button>
+                </p>
               </div>
             )}
           </div>
