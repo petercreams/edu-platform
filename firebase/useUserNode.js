@@ -4,12 +4,7 @@ import axios from "axios";
 
 const useUser = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [session, useSession] = useState({
-    uid: "",
-    email: "",
-    displayName: "",
-    photoURL: "",
-  });
+  const [session, setSession] = useState();
 
   const router = useRouter();
 
@@ -19,46 +14,59 @@ const useUser = () => {
       .then((info) => {
         console.log(info.data);
         localStorage.removeItem("JWT");
+        setSession();
         setIsLoggedIn(false);
-        alert("User has been logged out");
         router.push("/");
+        // alert("User has been logged out");
+      })
+      .catch((error) => {
+        console.log({ error: error.message });
       });
   };
 
   // zrobić to na cookies
 
-  const jwtAuthListener = () => {
-    var jwt = localStorage.getItem("JWT");
+  // const jwt = localStorage.getItem("JWT");
 
-    axios
-      .post(process.env.NEXT_PUBLIC_SERVER_HOST + "/user/auth", {
-        token: jwt,
-      })
-      .then((authInfo) => {
-        console.log(authInfo.data);
-        if (!authInfo.data.error) {
-          setIsLoggedIn(true);
-          useSession((prevState) => {
-            return {
-              ...prevState,
-              uid: authInfo.data.uid,
-              email: authInfo.data.email,
-              displayName: authInfo.data.name,
-              photoURL: authInfo.data.photoURL,
-            };
-          });
-          console.log("JWT checked");
-        } else {
-          console.log("No jwt");
-          setIsLoggedIn(false);
-        }
-      });
+  // jwtAuthListener();
+  //   console.log(session, "console");
+
+  const jwtAuthListener = () => {
+    const jwt = localStorage.getItem("JWT");
+    if (jwt !== null) {
+      axios
+        .post(process.env.NEXT_PUBLIC_SERVER_HOST + "/user/auth", {
+          token: jwt,
+        })
+        .then((authInfo) => {
+          // console.log(authInfo.data);
+          if (!authInfo.data.error) {
+            setIsLoggedIn(true);
+            setSession((prevState) => {
+              return {
+                ...prevState,
+                uid: authInfo.data.uid,
+                email: authInfo.data.email,
+                displayName: authInfo.data.name,
+                photoURL: authInfo.data.photoURL,
+              };
+            });
+          } else {
+            setIsLoggedIn(false);
+          }
+        })
+        .catch((error) => {
+          console.log({ error: error });
+        });
+    }
+    setIsLoggedIn(false);
   };
 
   useEffect(() => {
-      jwtAuthListener();
-  }, [])
+    jwtAuthListener();
 
+    console.log(session, "useEffect");
+  }, []);
 
   return { session, logout };
 };
