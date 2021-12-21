@@ -3,16 +3,10 @@ import CardRegister from "../../components/User/CardRegister";
 
 import styles from "../../styles/user/register.module.scss";
 
-export default function Login(props, { children }) {
+export default function Register(props, { children }) {
   const presentYear = new Date().getFullYear();
   return (
-    // <div>
-    //   <LoginForm />
-    // </div>
     <>
-      {/* <header>
-        <Navbar />
-      </header> */}
       <div className={styles.auth_container}>
         <div className={styles.contact_left_bar}>
           <img src="/illustrations/register-photo.svg"></img>
