@@ -4,20 +4,38 @@ import Link from "next/dist/client/link";
 import { useState, useEffect, useRef } from "react";
 import UserPanel from "../../../../components/User/UserPanel";
 import Navbar from "../../../../components/Home/Navbar";
+import { useAuthProvider } from "../../../../firebase/AuthProvider";
 
 export default function ChangePhoto(params) {
+  const user = useAuthProvider();
+
+  const [userPhoto, setUserPhoto] = useState(user?.photoURL);
   const newPhoto = useRef();
+
 
   const sendForm = (e) => {
     e.preventDefault();
 
-    const formData = {
-      newPhoto: newPhoto.current.value,
-    };
+    var file = newPhoto.current.files[0];
+
+    setUserPhoto(file);
 
     console.log("Form sent");
 
-    console.log(formData);
+    console.log(file);
+  };
+
+  const handleChange = () => {
+    const reader = new FileReader();
+
+    var file = newPhoto.current.files[0];
+
+    reader.onload = () => {
+      var dataURL = reader.result;
+      setUserPhoto(dataURL);
+    };
+
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -31,9 +49,15 @@ export default function ChangePhoto(params) {
           <div className={styles.form_container}>
             <form>
               <label>
-                <img src="/teachers/teacher1.jpg" />
+                {/* <img src={user.phtotoURL ? user.phtotoURL : "/icons/default_photo.jpg"} /> */}
+                <img src={userPhoto ? userPhoto : "/icons/default_photo.jpg"} />
                 <img id={styles.edit} src="/icons/edit.svg" />
-                <input ref={newPhoto} type="file"></input>
+                <input
+                  ref={newPhoto}
+                  type="file"
+                  onChange={handleChange}
+                  accept="image/png, image/jpeg, image/jpg"
+                ></input>
               </label>
 
               <div className={styles.buttons_container}>
