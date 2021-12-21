@@ -16,8 +16,7 @@ const useUser = () => {
         localStorage.removeItem("JWT");
         setSession();
         setIsLoggedIn(false);
-        router.push("/");
-        // alert("User has been logged out");
+        window.location.href = "/";
       })
       .catch((error) => {
         console.log({ error: error.message });
@@ -39,7 +38,7 @@ const useUser = () => {
           token: jwt,
         })
         .then((authInfo) => {
-          // console.log(authInfo.data);
+          console.log(authInfo.data);
           if (!authInfo.data.error) {
             setIsLoggedIn(true);
             setSession((prevState) => {
@@ -52,6 +51,7 @@ const useUser = () => {
               };
             });
           } else {
+            console.log(authInfo.data.error);
             setIsLoggedIn(false);
           }
         })
@@ -68,7 +68,7 @@ const useUser = () => {
     console.log(session, "useEffect");
   }, []);
 
-  return { session, logout };
+  return { session, logout, setSession };
 };
 
 export { useUser };
