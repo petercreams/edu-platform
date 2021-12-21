@@ -38,9 +38,13 @@ $text-size: 1.6rem; //16px
       font-size: $name-size;
     }
   
-    a {
+    p {
       color: black;
       font-size: $menu-size;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
@@ -49,14 +53,26 @@ $text-size: 1.6rem; //16px
     font-weight: bold;
 }
 
-#account {
+#account_on {
     color: $golden;
     font-weight: bold;
 }
 
-#courses {
+#courses_off {
     &:hover {
         color: $golden;
         font-weight: bold; 
     }
+}
+
+#account_off {
+    &:hover {
+        color: $golden;
+        font-weight: bold; 
+    }
+}
+
+#courses_on {
+    color: $golden;
+    font-weight: bold;
 }
