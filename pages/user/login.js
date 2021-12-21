@@ -6,13 +6,7 @@ import styles from "../../styles/user/login.module.scss";
 export default function Login(props, { children }) {
   const presentYear = new Date().getFullYear();
   return (
-    // <div>
-    //   <LoginForm />
-    // </div>
     <>
-      {/* <header>
-        <Navbar />
-      </header> */}
       <div className={styles.auth_container}>
         <div className={styles.contact_left_bar}>
           <img src="/illustrations/login-photo.svg"></img>
