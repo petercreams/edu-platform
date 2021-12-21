@@ -4,9 +4,11 @@ import Link from "next/dist/client/link";
 import { useState, useEffect, useRef } from "react";
 import UserPanel from "../../../../components/User/UserPanel";
 import Navbar from "../../../../components/Home/Navbar";
+import { useAuthProvider } from "../../../../firebase/AuthProvider";
 
 export default function ChangeEmail(params) {
   const newEmail = useRef();
+  const user = useAuthProvider();
 
   const sendForm = (e) => {
     // e.preventDefault();
@@ -32,7 +34,7 @@ export default function ChangeEmail(params) {
             <form>
               <input
                 ref={newEmail}
-                placeholder="youremail@adress.com"
+                placeholder={user?.email}
                 type="email"
               ></input>
 

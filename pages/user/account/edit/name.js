@@ -4,11 +4,12 @@ import Link from "next/dist/client/link";
 import { useState, useEffect, useRef } from "react";
 import UserPanel from "../../../../components/User/UserPanel";
 import Navbar from "../../../../components/Home/Navbar";
+import { useAuthProvider } from "../../../../firebase/AuthProvider";
 
 export default function ChangeName(params) {
 
   const newName = useRef();
-
+  const user = useAuthProvider();
 
   const sendForm = (e) => {
     e.preventDefault();
@@ -32,7 +33,7 @@ export default function ChangeName(params) {
           <p>Edit your displayed name or cancel an action.</p>
           <div className={styles.form_container}>
             <form>
-              <input ref={newName} placeholder="yourname" type="text"></input>
+              <input ref={newName} placeholder={user?.displayName} type="text"></input>
 
               <div className={styles.buttons_container}>
                 <Link href="/user/account">
