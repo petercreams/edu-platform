@@ -8,7 +8,7 @@ export default function CommentCard({ id, timeStamp, noteTitle, noteText, openDe
       </div>
       <div className={styles.note_container}>
         <div className={styles.note_bar}>
-          <p>{`${noteTitle} | ${id}`}</p>
+          <p>{noteTitle}</p>
           <div className={styles.options_container}>
             <img onClick={() => openEditNote(id)}src="/icons/edit.svg" />
             <img onClick={() => openDeleteNote(id)} src="/icons/delete.svg" />
