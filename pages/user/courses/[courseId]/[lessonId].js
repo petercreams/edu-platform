@@ -16,12 +16,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import {
   doc,
   getDoc,
-  getDocs,
-  collection,
-  collectionGroup,
-  where,
-  query,
-  orderBy,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../../../../firebase-client/clientApp";
 
@@ -110,9 +105,12 @@ export default function lessonId(props) {
       user.uid
     );
 
+    // create document with user id if doesn't exsist
+    await setDoc(commentsRef, {}, { merge: true });
+
     const commentsDb = await getDoc(commentsRef);
 
-    if (commentsDb !== undefined) {
+    if (commentsDb.data().comments) {
       const commentData = commentsDb.data().comments;
       setComments([]);
       commentData.map((comment, index) => {
@@ -128,6 +126,8 @@ export default function lessonId(props) {
           },
         ]);
       });
+    } else {
+      setComments([]);
     }
   };
 
