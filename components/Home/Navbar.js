@@ -7,20 +7,15 @@ import { useUser } from "../../firebase/useUserNode";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import { auth } from "../../firebase-client/clientApp";
+import { getAuth, signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 export default function Navbar(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
-  const { logout } = useUser();
-  const user = useAuthProvider();
-
-  useEffect(() => {
-    if (user) {
-      setIsLoggedIn(true);
-    } else setIsLoggedIn(false);
-  }, [user]);
-
-  console.log(user, "user");
+  const [user, loading, error] = useAuthState(getAuth());
 
   var mode = props.mode;
 
@@ -77,9 +72,8 @@ export default function Navbar(props) {
                 </li>
               </ul>
             ) : null}
-            {isLoggedIn ? (
+            {user ? (
               <div className={styles.profile_container}>
-                {/* {should be taken from server} */}
                 <img
                   onClick={clickHandler}
                   id={styles.profile_img}
@@ -110,8 +104,7 @@ export default function Navbar(props) {
 
                     <p
                       onClick={() => {
-                        setIsLoggedIn(false);
-                        logout();
+                        signOut(auth).then(router.push("/"));
                       }}
                       id={styles.logout}
                     >
@@ -128,7 +121,10 @@ export default function Navbar(props) {
                       Admin Panel
                     </p>
 
-                    <p onClick={() => setIsLoggedIn(false)} id={styles.logout}>
+                    <p
+                      onClick={() => signOut(auth).then(router.push("/"))}
+                      id={styles.logout}
+                    >
                       Log Out
                     </p>
                   </div>
