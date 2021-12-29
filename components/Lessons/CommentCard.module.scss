@@ -31,6 +31,10 @@ $text-size: 1.6rem; //16px
       padding: 1rem 3rem;
       width: 8rem;
       height: 5rem;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
   .options_container {
