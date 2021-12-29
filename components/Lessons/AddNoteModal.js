@@ -1,23 +1,55 @@
 import styles from "./NoteModal.module.scss";
 
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+  Timestamp,
+  collection,
+  where,
+  query,
+} from "firebase/firestore";
+import { db } from "../../firebase-client/clientApp";
+
 export default function AddNoteModal({
   noteText,
   noteTitle,
   sToTime,
   closeHandler,
   videoProps,
-  comments,
-  setModalProps
+  setModalProps,
+  user,
 }) {
-  const addNoteHandler = () => {
-    const data = {
-      id: (Math.random() * 10 + 10).toFixed(),
-      timeStamp: videoProps.currentTime,
-      noteTitle: noteTitle.current.value,
-      noteText: noteText.current.value,
-    };
+  const addNoteHandler = async () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const lessonId = queryParams.get("lesson");
+    const sectionNum = queryParams.get("section");
+    const courseName = queryParams.get("course");
 
-    comments.unshift(data);
+    const commentsRef = doc(
+      db,
+      "courses",
+      courseName,
+      "sections",
+      sectionNum,
+      "lessons",
+      lessonId,
+      "comments",
+      user.uid
+    );
+
+    await updateDoc(commentsRef, {
+      comments: arrayUnion({
+        id: Timestamp.now().seconds,
+        timeStamp: videoProps.currentTime,
+        noteTitle: noteTitle.current.value,
+        noteText: noteText.current.value,
+      }),
+    });
+
     setModalProps((prevState) => {
       return { ...prevState, isAddNoteOpen: false };
     });
