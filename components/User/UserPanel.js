@@ -1,8 +1,11 @@
 import styles from "./UserPanel.module.scss";
 import { useRouter } from "next/router";
-import { useAuthProvider } from "../../firebase/AuthProvider";
-import { useUser } from "../../firebase/useUserNode";
 import { useEffect, useState } from "react";
+
+import { auth } from "../../firebase-client/clientApp";
+
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import { withProtected } from "../../firebase/routes";
 
@@ -11,12 +14,14 @@ export default function UserPanel(props) {
 
   const router = useRouter();
 
-  const user = useAuthProvider();
+  // const user = useAuthProvider();
 
-  const { logout } = useUser();
+  // const { logout } = useUser();
+
+  const [user, loading, error] = useAuthState(getAuth());
 
   const signOut = () => {
-    logout();
+    // logout();
   };
 
   return (

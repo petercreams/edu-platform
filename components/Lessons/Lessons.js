@@ -1,76 +1,19 @@
 import LessonCard from "./LessonCard";
 
 import { useEffect, useState } from "react";
-import Link from "next/dist/client/link";
 
-const allLessons = [
-  {
-    id: "1",
-    sectionNum: "1",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-  {
-    id: "9",
-    sectionNum: "1",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-  {
-    id: "2",
-    sectionNum: "1",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-  {
-    id: "7",
-    sectionNum: "5",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-  {
-    id: "4",
-    sectionNum: "4",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-  {
-    id: "6",
-    sectionNum: "3",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-  {
-    id: "10",
-    sectionNum: "2",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-  {
-    id: "31",
-    sectionNum: "2",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-  {
-    id: "2",
-    sectionNum: "2",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-  {
-    id: "27",
-    sectionNum: "2",
-    sectionName: "Numbers",
-    subject: "Introduction to numbers",
-  },
-];
+import {
+  doc,
+  getDoc,
+  getDocs,
+  collection,
+  collectionGroup,
+  where,
+  query,
+} from "firebase/firestore";
+import { db } from "../../firebase-client/clientApp";
 
-// mogę pobierać z serwera poszczególne sekcje - wtedy mniej danych się będzie zaciągać
-
-// const lessons = [];
-
-export default function Lessons({ sortValue }) {
+export default function Lessons({ sortValue, filterValue }) {
   //   //Filter values
   //   useEffect(() => {
   //     allLessons.filter((lesson) => {
@@ -79,42 +22,82 @@ export default function Lessons({ sortValue }) {
   //     return lessons;
   //   }, [filterValue]);
 
-  const [refresh, setRefresh] = useState(false)
+  
+
+  const getLessons = async () => {
+    const url = window.location.href;
+    const lessonId = url.split("user/courses/")[1];
+
+    console.log(filterValue, "filterValue");
+
+    const sectionData = await getDoc(
+      doc(db, "courses", lessonId, "sections", filterValue)
+    );
+
+    console.log(sectionData.data());
+
+    const sectionLessons = await getDocs(
+      collection(db, "courses", lessonId, "sections", filterValue, "lessons")
+    );
+
+    sectionLessons.docs.map((lesson, index) => {
+      console.log(lesson.data());
+      setLessons((prevState) => [
+        ...prevState,
+        {
+          key: lesson.data().number,
+          id: lesson.data().number,
+          subject: lesson.data().subject,
+          sectionNum: sectionData.data().section,
+          sectionName: sectionData.data().sectionName,
+        },
+      ]);
+    });
+  };
+
+  const [refresh, setRefresh] = useState(false);
   const [lessons, setLessons] = useState([]);
 
   useEffect(() => {
     if (sortValue == "Asc") {
-      allLessons.sort((a, b) => {
+      lessons.sort((a, b) => {
         return parseInt(a.id) - parseInt(b.id);
       });
     } else if (sortValue == "Desc") {
-      allLessons.sort((a, b) => {
+      lessons.sort((a, b) => {
         return parseInt(b.id) - parseInt(a.id);
       });
     }
-    setLessons(allLessons);
+    setLessons(lessons);
     setRefresh(true);
   }, [sortValue]);
 
   useEffect(() => {
     setRefresh(false);
-  }, [refresh])
+  }, [refresh]);
+
+  useEffect(() => {
+    setLessons([]);
+    getLessons();
+  }, [filterValue]);
 
   return (
     <>
-      {!refresh && lessons.map((lesson, index) => {
-        index += 1;
-        return (
-          <LessonCard
-            key={lesson.id}
-            id={lesson.id}
-            number={lesson.id}
-            sectionNum={lesson.sectionNum}
-            sectionName={lesson.sectionName}
-            subject={lesson.subject}
-          />
-        );
-      })}
+      {!refresh &&
+        lessons.map((lesson, index) => {
+          index += 1;
+          return (
+            <LessonCard
+              key={lesson.id}
+              id={lesson.id}
+              number={lesson.id}
+              sectionNum={lesson.sectionNum}
+              sectionName={lesson.sectionName}
+              subject={lesson.subject}
+              course={window.location.href.split("user/courses/")[1]}
+            />
+          );
+        })}
     </>
   );
 }
