@@ -74,7 +74,8 @@ $text-size: 1.6rem; //16px
         min-width: 20rem;
         min-height: 20rem;
 
-        width: 30%;
+        width: 30rem;
+        height: 30rem;
 
         #edit {
           position: absolute;
@@ -91,8 +92,6 @@ $text-size: 1.6rem; //16px
             opacity: 0.8;
           }
         }
-
-
 
         img {
           width: 100%;
