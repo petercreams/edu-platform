@@ -6,23 +6,49 @@ import UserPanel from "../../../../components/User/UserPanel";
 import Navbar from "../../../../components/Home/Navbar";
 import { useAuthProvider } from "../../../../firebase/AuthProvider";
 
-export default function ChangePhoto(params) {
-  const user = useAuthProvider();
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
+import { getAuth, updateProfile } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  addDoc,
+  setDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "@firebase/firestore";
+import { useRouter } from "next/router";
 
-  const [userPhoto, setUserPhoto] = useState(user?.photoURL);
+export default function ChangePhoto(params) {
   const newPhoto = useRef();
 
+  const [user, loading, error] = useAuthState(getAuth());
+  const [userPhoto, setUserPhoto] = useState(user?.photoURL);
 
-  const sendForm = (e) => {
+  const router = useRouter();
+
+  const uploadPhoto = (e) => {
     e.preventDefault();
 
     var file = newPhoto.current.files[0];
 
-    setUserPhoto(file);
+    const storage = getStorage();
 
-    console.log("Form sent");
+    const storageRef = ref(storage, `profile_photos/${user.uid}`);
 
-    console.log(file);
+    console.log(storageRef);
+
+    uploadBytes(storageRef, file).then(async (snapshot) => {
+      const downloadURL = await getDownloadURL(storageRef);
+      updateProfile(user, { photoURL: downloadURL })
+        .then(() => router.push("/user/account"))
+        .catch((error) => console.log(error));
+    });
   };
 
   const handleChange = () => {
@@ -49,7 +75,6 @@ export default function ChangePhoto(params) {
           <div className={styles.form_container}>
             <form>
               <label>
-                {/* <img src={user.phtotoURL ? user.phtotoURL : "/icons/default_photo.jpg"} /> */}
                 <img src={userPhoto ? userPhoto : "/icons/default_photo.jpg"} />
                 <img id={styles.edit} src="/icons/edit.svg" />
                 <input
@@ -68,7 +93,7 @@ export default function ChangePhoto(params) {
                 </Link>
 
                 <a>
-                  <button onClick={sendForm} id={styles.long_button}>
+                  <button onClick={uploadPhoto} id={styles.long_button}>
                     Save changes
                   </button>
                 </a>
