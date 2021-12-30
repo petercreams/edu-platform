@@ -104,7 +104,7 @@ export default function Navbar(props) {
 
                     <p
                       onClick={() => {
-                        signOut(auth).then(router.push("/"));
+                        signOut(getAuth()).then(router.push("/"));
                       }}
                       id={styles.logout}
                     >
