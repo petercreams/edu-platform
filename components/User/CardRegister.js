@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/dist/client/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { auth } from "../../firebase-client/clientApp";
+import { createUserWithEmailAndPassword, updateProfile } from "@firebase/auth";
 
 export default function Register(props) {
   const [submit, setSubmit] = useState(false);
@@ -19,22 +21,15 @@ export default function Register(props) {
 
   // Send data to the endpoint
   const postData = async (email, password, name) => {
-    const data = { email: email, password: password, name: name };
+    createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        const user = userCredential.user;
 
-    axios
-      .post(process.env.NEXT_PUBLIC_SERVER_HOST + "/user/register", data)
-      .then((response) => {
-        console.log(data);
-        if (response.data.error) {
-          console.log(response.data.error);
-          setServerResponse(response.data.error);
-        } else {
-          console.log(response.data);
-          setSubmit(true);
-          router.push("/")
-        }
-      });
-    console.log(data);
+        updateProfile(user, { displayName: name })
+          .then(() => router.push("/"))
+          .catch((error) => console.log(error));
+      }
+    );
   };
 
   const router = useRouter();
@@ -121,13 +116,13 @@ export default function Register(props) {
       }, 3000);
   }, [errorConfirmPassword]);
 
-    //disappear error alert after 3s
-    useEffect(() => {
-      if (serverResponse.length > 0)
-        setTimeout(() => {
-          setServerResponse("");
-        }, 3000);
-    }, [serverResponse]);
+  //disappear error alert after 3s
+  useEffect(() => {
+    if (serverResponse.length > 0)
+      setTimeout(() => {
+        setServerResponse("");
+      }, 3000);
+  }, [serverResponse]);
 
   return (
     <form method="post" onSubmit={submitHandler}>
