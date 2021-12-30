@@ -2,22 +2,13 @@ import styles from "./NoteModal.module.scss";
 
 import { db } from "../../firebase-client/clientApp";
 
-import {
-  doc,
-  getDoc,
-  setDoc,
-  query,
-  where,
-  updateDoc,
-  arrayUnion,
-} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 export default function EditNoteModal({
   noteText,
   noteTitle,
   sToTime,
   closeHandler,
-  comments,
   setModalProps,
   selectedNote,
   user,
@@ -30,13 +21,11 @@ export default function EditNoteModal({
 
     // set current note data
     const currentNoteData = {
-      id: selectedNote.id,
       noteTitle: noteTitle.current.value,
       noteText: noteText.current.value,
-      timeStamp: selectedNote.timeStamp,
     };
-    console.log(selectedNote);
-    const commentsRef = doc(
+
+    const editedNoteRef = doc(
       db,
       "courses",
       courseName,
@@ -45,33 +34,12 @@ export default function EditNoteModal({
       "lessons",
       lessonId,
       "comments",
-      user.uid
+      user.uid,
+      "comments",
+      selectedNote.id
     );
 
-    const noteQuery = query(
-      commentsRef,
-      where("comments", "array-contains", {
-        id: selectedNote.id,
-        noteText: selectedNote.noteText,
-        noteTitle: selectedNote.noteTitle,
-        timeStamp: selectedNote.timeStamp,
-      })
-    );
-
-    // TODO: zamienić tablicę komentarzy na obiekty
-
-    console.log(noteQuery);
-
-    // await updateDoc(noteQuery, { comments: arrayUnion(currentNoteData) });
-
-    // // search for a selected Note and change its value to current
-    // comments.forEach((comment, index) => {
-    //   if (comment.id == selectedNote.noteId) {
-    //     let Note = comments[index];
-
-    //     comments[index] = { ...Note, ...currentNoteData };
-    //   }
-    // });
+    await updateDoc(editedNoteRef, currentNoteData);
 
     setModalProps((prevState) => {
       return { ...prevState, isEditNoteOpen: false };
