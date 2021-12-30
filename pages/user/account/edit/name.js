@@ -1,21 +1,17 @@
 import styles from "../../../../styles/user/edit/email.module.scss";
 import Link from "next/dist/client/link";
 
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import UserPanel from "../../../../components/User/UserPanel";
 import Navbar from "../../../../components/Home/Navbar";
-import { useAuthProvider } from "../../../../firebase/AuthProvider";
-import axiosInstance from "../../../../firebase/axiosInstance";
-import axios from "axios";
-import { useUser } from "../../../../firebase/useUserNode";
 
 import { getAuth, updateProfile } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 
 export default function ChangeName(params) {
-  const newName = useRef()
-  
+  const newName = useRef();
+
   const router = useRouter();
 
   const [user, loading, error] = useAuthState(getAuth());
