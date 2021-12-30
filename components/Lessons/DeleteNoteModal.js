@@ -1,28 +1,45 @@
 import styles from "./NoteModal.module.scss";
 
+import { db } from "../../firebase-client/clientApp";
+
+import { doc, deleteDoc } from "firebase/firestore";
+
 export default function DeleteNoteModal({
   noteText,
   noteTitle,
   sToTime,
   closeHandler,
-  comments,
   setModalProps,
   selectedNote,
+  user,
 }) {
-  const deleteNoteHandler = () => {
+  const deleteNoteHandler = async () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const lessonId = queryParams.get("lesson");
+    const sectionNum = queryParams.get("section");
+    const courseName = queryParams.get("course");
+
     // set current note data
     const currentNoteData = {
-      id: selectedNote.noteId,
+      id: selectedNote.id,
       noteTitle: noteTitle.current.value,
       noteText: noteText.current.value,
     };
 
-    // search for a selected Note and change its value to current
-    comments.forEach((comment, index) => {
-      if (comment.id == selectedNote.noteId) {
-        comments.splice(index, 1);
-      }
-    });
+    const deletedNoteRef = doc(
+      db,
+      "courses",
+      courseName,
+      "sections",
+      sectionNum,
+      "lessons",
+      lessonId,
+      "comments",
+      user.uid,
+      "comments",
+      selectedNote.id
+    );
+    await deleteDoc(deletedNoteRef);
 
     setModalProps((prevState) => {
       return { ...prevState, isDeleteNoteOpen: false };
