@@ -1,28 +1,15 @@
 import styles from "./UserPanel.module.scss";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
-import { auth } from "../../firebase-client/clientApp";
-
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-
-import { withProtected } from "../../firebase/routes";
 
 export default function UserPanel(props) {
   var option = props.option;
 
   const router = useRouter();
 
-  // const user = useAuthProvider();
-
-  // const { logout } = useUser();
-
   const [user, loading, error] = useAuthState(getAuth());
-
-  const signOut = () => {
-    // logout();
-  };
 
   return (
     <div className={styles.userPanel_container}>
@@ -43,7 +30,12 @@ export default function UserPanel(props) {
         My Courses
       </p>
 
-      <p onClick={signOut} id={styles.logout}>
+      <p
+        onClick={() => {
+          signOut(getAuth()).then(router.push("/"));
+        }}
+        id={styles.logout}
+      >
         Log Out
       </p>
     </div>
