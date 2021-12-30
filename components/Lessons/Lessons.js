@@ -2,28 +2,10 @@ import LessonCard from "./LessonCard";
 
 import { useEffect, useState } from "react";
 
-import {
-  doc,
-  getDoc,
-  getDocs,
-  collection,
-  collectionGroup,
-  where,
-  query,
-} from "firebase/firestore";
+import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../../firebase-client/clientApp";
 
 export default function Lessons({ sortValue, filterValue }) {
-  //   //Filter values
-  //   useEffect(() => {
-  //     allLessons.filter((lesson) => {
-  //       if (lesson.sectionNum == sortValue) lessons.push(lesson);
-  //     });
-  //     return lessons;
-  //   }, [filterValue]);
-
-  
-
   const getLessons = async () => {
     const url = window.location.href;
     const lessonId = url.split("user/courses/")[1];
