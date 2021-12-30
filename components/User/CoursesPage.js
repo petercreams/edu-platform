@@ -6,13 +6,7 @@ import UserPanel from "./UserPanel";
 import CourseCard from "./CourseCard";
 import Courses from "./Courses";
 
-
 export default function CoursesPage(params) {
-  const [isClicked, setIsClicked] = useState(false);
-  const [isLogOut, setIsLogOut] = useState(false);
-
-  // const [courses, setCourses] = useState([]);
-
   return (
     <div className={styles.menu_container}>
       <UserPanel option="courses" />
