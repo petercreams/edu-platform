@@ -8,7 +8,6 @@ import styles from "../../../../styles/lessons/[lessonId].module.scss";
 import AddNoteModal from "../../../../components/Lessons/AddNoteModal";
 import EditNoteModal from "../../../../components/Lessons/EditNoteModal";
 import DeleteNoteModal from "../../../../components/Lessons/DeleteNoteModal";
-import { useRouter } from "next/router";
 
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -16,7 +15,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import {
   doc,
   getDoc,
-  setDoc,
+  getDocs,
+  collection,
+  query,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "../../../../firebase-client/clientApp";
 
@@ -50,7 +52,7 @@ export default function lessonId(props) {
   });
 
   const [selectedNote, setSelectedNote] = useState({
-    noteId: "",
+    id: "",
     noteTitle: "",
     timeStamp: "",
     noteText: "",
@@ -93,7 +95,7 @@ export default function lessonId(props) {
     const sectionNum = queryParams.get("section");
     const courseName = queryParams.get("course");
 
-    const commentsRef = doc(
+    const commentsRef = collection(
       db,
       "courses",
       courseName,
@@ -102,27 +104,28 @@ export default function lessonId(props) {
       "lessons",
       lessonId,
       "comments",
-      user.uid
+      user.uid,
+      "comments"
     );
 
-    // create document with user id if doesn't exsist
-    await setDoc(commentsRef, {}, { merge: true });
+    const commentsQuery = query(commentsRef, orderBy("timeStamp", "desc"));
 
-    const commentsDb = await getDoc(commentsRef);
+    const commentsDb = await getDocs(commentsQuery);
 
-    if (commentsDb.data().comments) {
-      const commentData = commentsDb.data().comments;
+    if (commentsDb) {
+      const commentData = commentsDb.docs;
       setComments([]);
-      commentData.map((comment, index) => {
-        console.log(comment);
+      commentData.map((comment) => {
+        console.log(comment.data());
 
         setComments((prevState) => [
           ...prevState,
           {
-            id: index,
-            noteTitle: comment.noteTitle,
-            noteText: comment.noteText,
-            timeStamp: comment.timeStamp,
+            key: comment.data().id,
+            id: comment.data().id,
+            noteTitle: comment.data().noteTitle,
+            noteText: comment.data().noteText,
+            timeStamp: comment.data().timeStamp,
           },
         ]);
       });
@@ -146,10 +149,7 @@ export default function lessonId(props) {
   useEffect(() => {
     if (user) {
       getLesson();
-      setComments([]);
-      console.log(comments, "after blank comments");
       getComments();
-      console.log(comments, "after get comments");
     }
   }, [user]);
 
@@ -163,13 +163,6 @@ export default function lessonId(props) {
       getComments();
     }
   }, [modalProps]);
-
-  useEffect(() => {
-    // sort comments Ascending
-    comments.sort((a, b) => {
-      return parseInt(a.timeStamp) - parseInt(b.timeStamp);
-    });
-  }, [comments]);
 
   // ***********************
   // *** PLAYER FUNCTIONS ***
@@ -249,7 +242,7 @@ export default function lessonId(props) {
     setSelectedNote((prevState) => {
       return {
         ...prevState,
-        noteId: id,
+        id: id,
         timeStamp: Note.timeStamp,
         noteTitle: Note.noteTitle,
         noteText: Note.noteText,
@@ -270,7 +263,7 @@ export default function lessonId(props) {
     setSelectedNote((prevState) => {
       return {
         ...prevState,
-        noteId: id,
+        id: id,
         timeStamp: Note.timeStamp,
         noteTitle: Note.noteTitle,
         noteText: Note.noteText,
@@ -323,9 +316,9 @@ export default function lessonId(props) {
             sToTime={sToTime}
             closeHandler={closeHandler}
             videoProps={videoProps}
-            comments={comments}
             setModalProps={setModalProps}
             selectedNote={selectedNote}
+            user={user}
           />
         </div>
       )}
@@ -337,9 +330,9 @@ export default function lessonId(props) {
             sToTime={sToTime}
             closeHandler={closeHandler}
             videoProps={videoProps}
-            comments={comments}
             setModalProps={setModalProps}
             selectedNote={selectedNote}
+            user={user}
           />
         </div>
       )}
@@ -361,24 +354,20 @@ export default function lessonId(props) {
             </div>
           </div>
           <div className={styles.comments_container}>
-            {comments !== undefined ? (
-              comments.map((comment) => {
-                return (
-                  <CommentCard
-                    id={comment.id}
-                    sToTime={sToTime}
-                    timeStamp={comment.timeStamp}
-                    noteTitle={comment.noteTitle}
-                    noteText={comment.noteText}
-                    openEditNote={openEditNote}
-                    openDeleteNote={openDeleteNote}
-                    playVideoAt={playVideoAt}
-                  />
-                );
-              })
-            ) : (
-              <p>no comments</p>
-            )}
+            {comments.map((comment) => {
+              return (
+                <CommentCard
+                  id={comment.id}
+                  sToTime={sToTime}
+                  timeStamp={comment.timeStamp}
+                  noteTitle={comment.noteTitle}
+                  noteText={comment.noteText}
+                  openEditNote={openEditNote}
+                  openDeleteNote={openDeleteNote}
+                  playVideoAt={playVideoAt}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
