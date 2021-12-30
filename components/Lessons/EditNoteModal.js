@@ -1,5 +1,17 @@
 import styles from "./NoteModal.module.scss";
 
+import { db } from "../../firebase-client/clientApp";
+
+import {
+  doc,
+  getDoc,
+  setDoc,
+  query,
+  where,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
+
 export default function EditNoteModal({
   noteText,
   noteTitle,
@@ -7,24 +19,59 @@ export default function EditNoteModal({
   closeHandler,
   comments,
   setModalProps,
-  selectedNote
+  selectedNote,
+  user,
 }) {
-  const editNoteHandler = () => {
+  const editNoteHandler = async () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const lessonId = queryParams.get("lesson");
+    const sectionNum = queryParams.get("section");
+    const courseName = queryParams.get("course");
+
     // set current note data
     const currentNoteData = {
-      id: selectedNote.noteId,
+      id: selectedNote.id,
       noteTitle: noteTitle.current.value,
       noteText: noteText.current.value,
+      timeStamp: selectedNote.timeStamp,
     };
+    console.log(selectedNote);
+    const commentsRef = doc(
+      db,
+      "courses",
+      courseName,
+      "sections",
+      sectionNum,
+      "lessons",
+      lessonId,
+      "comments",
+      user.uid
+    );
 
-    // search for a selected Note and change its value to current
-    comments.forEach((comment, index) => {
-      if (comment.id == selectedNote.noteId) {
-        let Note = comments[index];
+    const noteQuery = query(
+      commentsRef,
+      where("comments", "array-contains", {
+        id: selectedNote.id,
+        noteText: selectedNote.noteText,
+        noteTitle: selectedNote.noteTitle,
+        timeStamp: selectedNote.timeStamp,
+      })
+    );
 
-        comments[index] = { ...Note, ...currentNoteData };
-      }
-    });
+    // TODO: zamienić tablicę komentarzy na obiekty
+
+    console.log(noteQuery);
+
+    // await updateDoc(noteQuery, { comments: arrayUnion(currentNoteData) });
+
+    // // search for a selected Note and change its value to current
+    // comments.forEach((comment, index) => {
+    //   if (comment.id == selectedNote.noteId) {
+    //     let Note = comments[index];
+
+    //     comments[index] = { ...Note, ...currentNoteData };
+    //   }
+    // });
 
     setModalProps((prevState) => {
       return { ...prevState, isEditNoteOpen: false };
