@@ -3,6 +3,7 @@ import styles from "./NoteModal.module.scss";
 import {
   arrayUnion,
   doc,
+  addDoc,
   getDoc,
   getDocs,
   setDoc,
@@ -29,7 +30,9 @@ export default function AddNoteModal({
     const sectionNum = queryParams.get("section");
     const courseName = queryParams.get("course");
 
-    const commentsRef = doc(
+    const noteId = Math.random().toString(36).substr(2, 12);
+
+    const addedNoteRef = doc(
       db,
       "courses",
       courseName,
@@ -38,16 +41,16 @@ export default function AddNoteModal({
       "lessons",
       lessonId,
       "comments",
-      user.uid
+      user.uid,
+      "comments",
+      noteId
     );
 
-    await updateDoc(commentsRef, {
-      comments: arrayUnion({
-        id: Timestamp.now().seconds,
-        timeStamp: videoProps.currentTime,
-        noteTitle: noteTitle.current.value,
-        noteText: noteText.current.value,
-      }),
+    await setDoc(addedNoteRef, {
+      id: noteId,
+      timeStamp: parseInt(videoProps.currentTime),
+      noteTitle: noteTitle.current.value,
+      noteText: noteText.current.value,
     });
 
     setModalProps((prevState) => {
