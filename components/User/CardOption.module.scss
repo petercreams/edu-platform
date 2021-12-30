@@ -15,8 +15,8 @@ $text-size: 1.6rem; //16px
   justify-content: space-evenly;
   align-items: center;
 
-  width: 40%;
-  height: 30%;
+  width: 100%;
+  height: 100%;
 
   background: #ffffff;
   border: 1px solid #000000;
@@ -43,6 +43,12 @@ $text-size: 1.6rem; //16px
     font-size: $text-size;
     color: $margin;
   }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
 }
 
 
