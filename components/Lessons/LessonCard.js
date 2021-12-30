@@ -3,11 +3,14 @@ import { useRouter } from "next/router";
 
 export default function LessonCard(props) {
   const router = useRouter();
-  const {pid} = router.query;
 
   return (
     <div
-      onClick={() => router.push(`${window.location.href}/${props.id}/?lesson=${props.id}&section=${props.sectionNum}&course=${props.course}`)}
+      onClick={() =>
+        router.push(
+          `${window.location.href}/${props.id}/?lesson=${props.id}&section=${props.sectionNum}&course=${props.course}`
+        )
+      }
       className={styles.lesson__item}
     >
       <div className={styles.lesson__id}>
