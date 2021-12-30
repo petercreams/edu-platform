@@ -53,27 +53,6 @@ export default function Courses() {
     }
   };
 
-  const getCourses2 = async () => {
-    const coursesRef = collection(db, "courses");
-
-    // const snapshot = await getDocs(coursesRef);
-    // const snapshot = await getDocs(coursesRef);
-
-    // const snapshot = await getDoc(doc(db, "courses", "math-8", "sections", "2"))
-
-    // console.log(snapshot.data());
-
-    const snapshot = await getDocs(
-      collection(db, "courses", "math-8", "sections")
-    );
-
-    snapshot.docs.map((document) => {
-      console.log(document.data());
-    });
-
-    // snapshot.docs.map((document, index) => console.log(document.data(), index));
-  };
-
   return (
     <>
       {courses.map((course) => {
