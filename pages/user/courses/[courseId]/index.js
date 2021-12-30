@@ -4,17 +4,61 @@ import UserPanel from "../../../../components/User/UserPanel";
 import styles from "../../../../styles/courses/[courseId].module.scss";
 import { useState, useEffect } from "react";
 
-const sections = ["1", "2", "3", "4", "5"];
+import {
+  doc,
+  getDoc,
+  getDocs,
+  collection,
+  where,
+  query,
+} from "firebase/firestore";
+import { db } from "../../../../firebase-client/clientApp";
+
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 const sort = ["Asc", "Desc"];
 
 export default function courseId(params) {
+  const [user, loading, error] = useAuthState(getAuth());
+  const [courseName, setCourseName] = useState("");
+  const [sections, setSections] = useState([]);
+
   const [filterValue, setFilterValue] = useState("1");
   const [sortValue, setSortValue] = useState("Asc");
 
   const [filterClicked, setFilterClicked] = useState(false);
   const [sortClicked, setSortClicked] = useState(false);
 
-  //dostęp do lekcji z RecoilState ?
+  const getCourse = async () => {
+    const url = window.location.href;
+    const lessonId = url.split("user/courses/")[1];
+
+    const courseRef = await getDoc(doc(db, "courses", lessonId));
+    const course = courseRef.data();
+
+    setCourseName(course.title);
+    console.log(course);
+  };
+
+  const getSections = async () => {
+    const url = window.location.href;
+    const lessonId = url.split("user/courses/")[1];
+
+    const sectionQuery = query(
+      collection(db, "courses", lessonId, "sections"),
+      where("owners", "array-contains", user.uid)
+    );
+    const userSections = await getDocs(sectionQuery);
+
+    // reset sections
+    setSections([]);
+
+    // get sections from the server
+    userSections.docs.map((section, index) => {
+      setSections((prevState) => [...prevState, section.data().section]);
+    });
+  };
 
   const filterHandler = () => {
     setFilterClicked(!filterClicked);
@@ -42,6 +86,19 @@ export default function courseId(params) {
     console.log("sortValue", sortValue);
   }, [sortValue, filterValue]);
 
+  useEffect(() => {
+    if (user) {
+      getSections();
+      getCourse();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      getSections();
+    }
+  }, [filterClicked]);
+
   return (
     <div className={styles.courses_container}>
       <Navbar mode={"account"} />
@@ -49,7 +106,7 @@ export default function courseId(params) {
         <UserPanel option="courses" />
 
         <div className={styles.right_bar}>
-          <h1>Course name</h1>
+          <h1>{courseName}</h1>
           <div className={styles.options_container}>
             <div className={styles.options__item}>
               <p>Filter by section:</p>
