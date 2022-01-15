@@ -1,5 +1,15 @@
 import styles from "./CardContact.module.scss";
 
+import {
+  doc,
+  addDoc,
+  getDocs,
+  collection,
+  query,
+  orderBy,
+} from "firebase/firestore";
+import { db } from "../../firebase-client/clientApp";
+
 import { useState, useRef, useEffect } from "react";
 
 export default function CardContact(props) {
@@ -9,6 +19,8 @@ export default function CardContact(props) {
   const userEmail = useRef();
   const userText = useRef();
 
+  const formsRef = collection(db, "forms");
+
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -16,6 +28,10 @@ export default function CardContact(props) {
       email: userEmail.current.value,
       text: userText.current.value,
     };
+
+    addDoc(formsRef, formData)
+      .then(() => console.log("added"))
+      .catch((error) => console.log(error));
 
     // form data validation
     if ((formData.email !== "") & (formData.text !== "")) {
@@ -26,7 +42,6 @@ export default function CardContact(props) {
     } else {
       setError(true);
     }
-    console.log(formData);
   };
 
   // disappear send alert after 5s
