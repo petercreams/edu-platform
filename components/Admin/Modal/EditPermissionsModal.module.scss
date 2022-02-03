@@ -1,0 +1,181 @@
+// set basic colors
+$violet-dark: #2a0944;
+$violet-light: #3b185f;
+$margin: #a12568;
+$golden: #fec260;
+
+// set basic font sizes
+// root: 10px
+$title-size: 3.6rem;
+$name-size: 2.5rem; //25px
+$menu-size: 1.8rem; //20px
+$text-size: 1.6rem; //16px
+
+.modal_container {
+  position: fixed;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  width: 60%;
+
+  min-height: 40rem;
+  min-width: 46rem;
+
+  background: #ffffff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+  padding: 6rem 6rem;
+
+
+  .activeCourses_container {
+    display: flex;
+    flex-direction: column;
+
+
+
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: $text-size;
+
+      img {
+        width: 2rem;
+        filter: invert(18%) sepia(93%) saturate(7472%) hue-rotate(359deg)
+          brightness(120%) contrast(111%);
+
+        &:hover {
+          font-weight: bold;
+          cursor: pointer;
+          fill: red;
+        }
+      }
+
+      li {
+        align-self: center;
+      }
+
+      p {
+        color: red;
+        cursor: pointer;
+        align-self: center;
+
+        &:hover {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .deleteCourses_container {
+    display: flex;
+    flex-direction: column;
+
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: $text-size;
+    }
+  }
+
+  p {
+    font-size: $text-size;
+  }
+
+  .top_bar {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+
+    img {
+      width: 3rem;
+      height: 3rem;
+
+      cursor: pointer;
+      opacity: 0.8;
+    }
+
+    h1 {
+      font-size: $title-size;
+    }
+  }
+
+  .options_container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    gap: 2rem;
+    
+#selected {
+    background-color: $golden;
+    color: white;
+    padding: 1rem;
+    font-weight: bold;
+    letter-spacing: .25rem;
+}
+
+    input {
+      width: 100%;
+      flex-grow: 1;
+      background: #ffffff;
+      border: 1px solid #000000;
+      border-radius: 5px;
+
+      padding: 1rem;
+
+      resize: none;
+      overflow: auto;
+
+      font-family: inherit;
+      font-size: $text-size;
+    }
+
+    datalist {
+      input {
+        width: 100%;
+        flex-grow: 1;
+        background: #ffffff;
+        border: 1px solid #000000;
+        border-radius: 5px;
+      }
+    }
+
+    .buttons_container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+
+      button {
+        display: block;
+        border: none;
+        width: 13rem;
+        height: 6rem;
+        background: $golden;
+        border-radius: 10px;
+
+        color: white;
+        font-size: $menu-size;
+        font-weight: 600;
+
+        &:hover {
+          cursor: pointer;
+          background: darken($golden, 10%);
+        }
+      }
+
+      #long_button {
+        width: 22rem;
+      }
+    }
+  }
+}
