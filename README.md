@@ -57,7 +57,7 @@ This commercial project has been in development since September 2021. This is th
 * Connected with Firebase Firestore Database
 
 ![Lesson-Panel](screenshots/mathx5.png)
-![Edit-Note](screenshots/mathx7.png)
+![Edit-Note](screenshots/mathx8.png)
 
 ## Technologies
 * Next.js 11
