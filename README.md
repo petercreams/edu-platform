@@ -11,9 +11,7 @@ This project is a demo, MVP (Minimum Viable Product) version of commercial LMS f
 
 This commercial project has been in development since September 2021. This is the first version, intended for presentation. Currently, the project is in the process of merging with Django on the server side.
 
-**The entire project was designed by me at Figma.**
-
-**Designed Mobile & Desktop Viewport.**
+**The entire project was designed by me at Figma (Mobile & Desktop Viewport).**
 
 ### Available features:
 #### Landing Page
